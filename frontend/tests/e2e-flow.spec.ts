@@ -27,7 +27,7 @@ test('E2E auth and note-creation flow', async ({ page }) => {
 
   // 2. Open Auth Modal
   console.log('Opening Auth Modal...');
-  const authTrigger = page.locator('header button:has-text("Sign In / Sign Up")');
+  const authTrigger = page.locator('aside button:has-text("Sign In / Sign Up")');
   await expect(authTrigger).toBeVisible({ timeout: 5000 });
   await authTrigger.click();
 
@@ -75,7 +75,7 @@ test('E2E auth and note-creation flow', async ({ page }) => {
 
   // Verify successful authentication (the Sign In / Sign Up button should disappear)
   console.log('Verifying authentication success...');
-  await expect(page.locator('header button:has-text("Sign In / Sign Up")')).not.toBeVisible({ timeout: 8000 });
+  await expect(page.locator('aside button:has-text("Sign In / Sign Up")')).not.toBeVisible({ timeout: 8000 });
   console.log('Authentication successful!');
 
   // 6. Navigate to /read/Gen.1.1

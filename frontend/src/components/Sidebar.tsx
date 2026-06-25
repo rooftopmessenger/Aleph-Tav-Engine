@@ -1,10 +1,63 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { fetchAuthMe, User } from '@/lib/api';
+import AuthModal from './AuthModal';
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchUser = async (token: string) => {
+    try {
+      setLoading(true);
+      const userData = await fetchAuthMe(token);
+      setUser(userData);
+    } catch (err) {
+      localStorage.removeItem('token');
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        fetchUser(token);
+      } else {
+        setUser(null);
+      }
+    };
+
+    handleAuthChange(); // check on mount
+
+    window.addEventListener('auth-change', handleAuthChange);
+    
+    // Listen for custom trigger to open authentication modal from other components
+    const handleOpenAuth = () => setIsOpen(true);
+    window.addEventListener('open-auth-modal', handleOpenAuth);
+
+    return () => {
+      window.removeEventListener('auth-change', handleAuthChange);
+      window.removeEventListener('open-auth-modal', handleOpenAuth);
+    };
+  }, []);
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    window.dispatchEvent(new Event('auth-change'));
+  };
+
+  const handleSuccess = (token: string) => {
+    localStorage.setItem('token', token);
+    window.dispatchEvent(new Event('auth-change'));
+  };
 
   const links = [
     {
@@ -58,6 +111,7 @@ export default function Sidebar() {
             <span className="text-[10px] text-neutral-500 font-mono tracking-wider">HEBREW STUDY SUITE</span>
           </Link>
         </div>
+        
         <nav className="flex-1 px-4 py-6 space-y-1">
           {links.map((link) => {
             const isActive = link.activePattern 
@@ -79,7 +133,42 @@ export default function Sidebar() {
             );
           })}
         </nav>
-        <div className="p-6 border-t border-neutral-900 text-xs text-neutral-600 font-mono">
+        
+        {/* Auth section & DB indicator at the bottom of the Sidebar */}
+        <div className="p-4 border-t border-neutral-900 flex flex-col gap-3">
+          {loading ? (
+            <div className="flex items-center gap-2 bg-neutral-900/40 border border-neutral-800 rounded-xl px-4 py-2 text-neutral-400 text-xs">
+              <span className="w-3.5 h-3.5 border-2 border-neutral-400 border-t-transparent rounded-full animate-spin" />
+              Loading account...
+            </div>
+          ) : user ? (
+            <div className="flex flex-col gap-2 bg-neutral-900/60 border border-neutral-850 rounded-xl p-3">
+              <div className="flex flex-col">
+                <span className="text-[9px] text-neutral-500 font-bold uppercase tracking-wider">Account</span>
+                <span className="text-xs font-semibold text-neutral-255 truncate">{user.email}</span>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="text-left text-xs font-bold text-red-400 hover:text-red-300 transition-colors cursor-pointer"
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="w-full px-4 py-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 hover:border-amber-500/80 text-amber-300 hover:text-amber-200 font-bold rounded-xl transition-all text-xs cursor-pointer text-center"
+            >
+              Sign In / Sign Up
+            </button>
+          )}
+          
+          <div className="text-[10px] text-neutral-500 font-mono text-center pt-1 border-t border-neutral-900/40 mt-1">
+            Local SQLite: kjv_strongs.db
+          </div>
+        </div>
+
+        <div className="px-6 py-4 border-t border-neutral-900 text-xs text-neutral-600 font-mono">
           © {new Date().getFullYear()} Aleph-Tav
         </div>
       </aside>
@@ -94,7 +183,7 @@ export default function Sidebar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`flex flex-col items-center justify-center gap-1 w-16 py-1 rounded-lg text-[10px] font-bold transition-all duration-200 ${
+              className={`flex flex-col items-center justify-center gap-1 w-14 py-1 rounded-lg text-[10px] font-bold transition-all duration-200 ${
                 isActive
                   ? 'text-amber-400'
                   : 'text-neutral-500 hover:text-neutral-300'
@@ -105,7 +194,36 @@ export default function Sidebar() {
             </Link>
           );
         })}
+        
+        {/* Mobile Auth Button */}
+        {user ? (
+          <button
+            onClick={handleSignOut}
+            className="flex flex-col items-center justify-center gap-1 w-14 py-1 rounded-lg text-[10px] font-bold text-red-400 hover:text-red-300 transition-all cursor-pointer"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span className="truncate">Sign Out</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex flex-col items-center justify-center gap-1 w-14 py-1 rounded-lg text-[10px] font-bold text-amber-400 hover:text-amber-300 transition-all cursor-pointer"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span className="truncate">Sign In</span>
+          </button>
+        )}
       </nav>
+
+      <AuthModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onSuccess={handleSuccess}
+      />
     </>
   );
 }

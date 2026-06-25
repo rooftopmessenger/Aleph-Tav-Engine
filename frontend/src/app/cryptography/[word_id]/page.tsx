@@ -5,6 +5,40 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { fetchWordDetail, WordExtended } from '@/lib/api';
 
+function getPhoneticTransliteration(hebrew: string): string {
+  if (!hebrew) return '';
+  // Strip vowels/accents (nikkud) to get clean consonants
+  const clean = hebrew.replace(/[\u0591-\u05C7]/g, '');
+  const map: Record<string, string> = {
+    'א': 'A',
+    'ב': 'B',
+    'ג': 'G',
+    'ד': 'D',
+    'ה': 'H',
+    'ו': 'V',
+    'ז': 'Z',
+    'ח': 'Ch',
+    'ט': 'T',
+    'י': 'Y',
+    'כ': 'K', 'ך': 'K',
+    'ל': 'L',
+    'מ': 'M', 'ם': 'M',
+    'נ': 'N', 'ן': 'N',
+    'ס': 'S',
+    'ע': 'A',
+    'פ': 'P', 'ף': 'P',
+    'צ': 'Ts', 'ץ': 'Ts',
+    'ק': 'K',
+    'ר': 'R',
+    'ש': 'Sh',
+    'ת': 'T'
+  };
+  return clean
+    .split('')
+    .map(char => map[char] || char)
+    .join('-');
+}
+
 export default function WordCryptographyPage() {
   const params = useParams();
   const router = useRouter();
@@ -196,7 +230,9 @@ export default function WordCryptographyPage() {
                     <span className="text-[9px] text-neutral-650 mt-1 italic">No lexical match</span>
                   )}
                 </div>
-                <span className="text-xl font-serif font-black text-teal-400">{word.atbash ?? '—'}</span>
+                <span className="text-xl font-serif font-black text-teal-400">
+                  {word.atbash ? `${word.atbash} — ${getPhoneticTransliteration(word.atbash)}` : '—'}
+                </span>
               </div>
 
               <div className="flex justify-between items-center bg-[#070707] p-4 rounded-xl border border-zinc-850">
@@ -219,7 +255,9 @@ export default function WordCryptographyPage() {
                     <span className="text-[9px] text-neutral-650 mt-1 italic">No lexical match</span>
                   )}
                 </div>
-                <span className="text-xl font-serif font-black text-teal-400">{word.albam ?? '—'}</span>
+                <span className="text-xl font-serif font-black text-teal-400">
+                  {word.albam ? `${word.albam} — ${getPhoneticTransliteration(word.albam)}` : '—'}
+                </span>
               </div>
 
               <div className="flex justify-between items-center bg-[#070707] p-4 rounded-xl border border-zinc-850">
@@ -242,7 +280,9 @@ export default function WordCryptographyPage() {
                     <span className="text-[9px] text-neutral-650 mt-1 italic">No lexical match</span>
                   )}
                 </div>
-                <span className="text-xl font-serif font-black text-teal-400">{word.atbah ?? '—'}</span>
+                <span className="text-xl font-serif font-black text-teal-400">
+                  {word.atbah ? `${word.atbah} — ${getPhoneticTransliteration(word.atbah)}` : '—'}
+                </span>
               </div>
             </div>
           </div>
