@@ -10,6 +10,7 @@ from alembic import context
 # Add backend directory to sys.path so we can import ingest_db
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from ingest_db import Base
+from models.cryptography import CryptographicCharacter
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

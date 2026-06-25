@@ -20,7 +20,7 @@ import bcrypt
 
 from ingest_db import Book, StrongsLexicon, Verse, Word, User, SavedNote, normalize_strongs
 from services.ai_service import OllamaService
-from routers import cryptography
+from routers import cryptography, search
 
 # ==========================================
 # 1. Pydantic V2 Schemas for Serialization
@@ -67,6 +67,14 @@ class WordSchema(BaseModel):
     morph_code: Optional[str] = None
     morph_detail: Optional[str] = None
     english_gloss: Optional[str] = None
+    
+    # Cryptographic persists fields
+    gematria_absolute: Optional[int] = None
+    gematria_ordinal: Optional[int] = None
+    gematria_reduced: Optional[int] = None
+    atbash: Optional[str] = None
+    albam: Optional[str] = None
+    atbah: Optional[str] = None
     
     # Eagerly load lexicon mappings for interlinear popups
     lexicon: Optional[StrongsLexiconSchema] = None
@@ -264,6 +272,7 @@ app.add_middleware(
 )
 
 app.include_router(cryptography.router)
+app.include_router(search.router)
 
 # ==========================================
 # 5. API Endpoints

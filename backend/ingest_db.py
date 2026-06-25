@@ -101,6 +101,14 @@ class Word(Base):
     morph_detail: Mapped[str] = mapped_column(Text, nullable=True)
     english_gloss: Mapped[str] = mapped_column(String(200), nullable=True)
     
+    # Cryptographic persists fields
+    gematria_absolute: Mapped[int] = mapped_column(Integer, nullable=True)
+    gematria_ordinal: Mapped[int] = mapped_column(Integer, nullable=True)
+    gematria_reduced: Mapped[int] = mapped_column(Integer, nullable=True)
+    atbash: Mapped[str] = mapped_column(String(100), nullable=True)
+    albam: Mapped[str] = mapped_column(String(100), nullable=True)
+    atbah: Mapped[str] = mapped_column(String(100), nullable=True)
+    
     verse: Mapped["Verse"] = relationship(back_populates="words")
     lexicon: Mapped["StrongsLexicon"] = relationship(back_populates="words")
 

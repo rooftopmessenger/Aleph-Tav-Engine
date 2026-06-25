@@ -1,3 +1,8 @@
+import sys
+import asyncio
+if sys.platform == 'win32':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 import unittest
 from utils.normalization import (
     strip_html_tags,
@@ -6,7 +11,7 @@ from utils.normalization import (
     normalize_hebrew_text,
 )
 from models.cryptography import TopographicalMapping, CryptographicArray
-from ingest_db import CryptographicLetter
+from ingest_db import CryptographicLetter, Word
 
 # Import the ciphers and gematria calculators to test them
 from utils.ciphers import atbash_cipher, albam_cipher, atbah_cipher
@@ -123,5 +128,56 @@ class TestHebrewGematria(unittest.TestCase):
         self.assertEqual(calculate_gematria("יהוה", "reduced"), 8)
         self.assertEqual(calculate_gematria("בראשית", "reduced"), 4)
 
+class TestWordCryptographyModel(unittest.TestCase):
+    
+    def test_model_cryptography_fields(self):
+        # Verify Word model fields mapping
+        word = Word(
+            verse_id=1,
+            bhs_sort=999999,
+            word_index=1,
+            hebrew_segment="אבג",
+            gematria_absolute=6,
+            gematria_ordinal=6,
+            gematria_reduced=6,
+            atbash="תשר",
+            albam="למנ",
+            atbah="טחז"
+        )
+        self.assertEqual(word.gematria_absolute, 6)
+        self.assertEqual(word.gematria_ordinal, 6)
+        self.assertEqual(word.gematria_reduced, 6)
+        self.assertEqual(word.atbash, "תשר")
+        self.assertEqual(word.albam, "למנ")
+        self.assertEqual(word.atbah, "טחז")
+
+from fastapi.testclient import TestClient
+from main import app
+
+class TestCryptographicSearchAPI(unittest.TestCase):
+    
+    def setUp(self):
+        self.client = TestClient(app)
+        
+    def test_search_no_params_error(self):
+        # Hits endpoint with no parameters, should return 400 Bad Request
+        resp = self.client.get("/api/search/cryptography")
+        self.assertEqual(resp.status_code, 400)
+        self.assertIn("At least one search filter", resp.json()["detail"])
+
+    def test_search_with_params(self):
+        # Hits endpoint with a search parameter, e.g. gematria_absolute=26
+        # It should return a 200 OK with a list
+        resp = self.client.get("/api/search/cryptography?gematria_absolute=26")
+        self.assertEqual(resp.status_code, 200)
+        self.assertIsInstance(resp.json(), list)
+        
+    def test_search_with_cipher_params(self):
+        # Hits endpoint with cipher search parameter
+        resp = self.client.get("/api/search/cryptography?atbash=בראשית")
+        self.assertEqual(resp.status_code, 200)
+        self.assertIsInstance(resp.json(), list)
+
 if __name__ == "__main__":
     unittest.main()
+
