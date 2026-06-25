@@ -11,6 +11,7 @@ dependencies = [
     "cryptography>=49.0.0",
     "fastapi>=0.137.2",
     "httpx>=0.28.1",
+    "numpy>=2.4.6",
     "passlib>=1.7.4",
     "pgvector>=0.4.2",
     "psycopg>=3.3.4",

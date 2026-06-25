@@ -1,0 +1,193 @@
+--- Analyzing Divine Speech Patterns in Isaiah 40 ---
+
+Analyzing Isa.40.1:
+  Word: נַחֲמ֥וּ | Gematria (Abs): 104 | Atbash: טסיפ
+  Word: נַחֲמ֖וּ | Gematria (Abs): 104 | Atbash: טסיפ
+  Word: עַמִּ֑י | Gematria (Abs): 120 | Atbash: זימ
+  Word: יֹאמַ֖ר | Gematria (Abs): 251 | Atbash: מתיג
+  Word: אֱלֹהֵיכֶֽם׃ | Gematria (Abs): 106 | Atbash: תכצמלי
+
+Analyzing Isa.40.2:
+  Word: דַּבְּר֞וּ | Gematria (Abs): 212 | Atbash: קשגפ
+  Word: עַל־ | Gematria (Abs): 100 | Atbash: זכ
+  Word: לֵ֤ב | Gematria (Abs): 32 | Atbash: כש
+  Word: יְרֽוּשָׁלִַ֨ם֙ | Gematria (Abs): 586 | Atbash: מגפבכי
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: קִרְא֣וּ | Gematria (Abs): 307 | Atbash: דגתפ
+  Word: אֵלֶ֔יהָ | Gematria (Abs): 46 | Atbash: תכמצ
+  Word: כִּ֤י | Gematria (Abs): 30 | Atbash: למ
+  Word: מָֽלְאָה֙ | Gematria (Abs): 76 | Atbash: יכתצ
+  Word: צְבָאָ֔הּ | Gematria (Abs): 98 | Atbash: השתצ
+  Word: כִּ֥י | Gematria (Abs): 30 | Atbash: למ
+  Word: נִרְצָ֖ה | Gematria (Abs): 345 | Atbash: טגהצ
+  Word: עֲוֹנָ֑הּ | Gematria (Abs): 131 | Atbash: זפטצ
+  Word: כִּ֤י | Gematria (Abs): 30 | Atbash: למ
+  Word: לָקְחָה֙ | Gematria (Abs): 143 | Atbash: כדסצ
+  Word: מִ | Gematria (Abs): 40 | Atbash: י
+  Word: יַּ֣ד | Gematria (Abs): 14 | Atbash: מק
+  Word: יְהוָ֔ה | Gematria (Abs): 26 | Atbash: מצפצ
+  Word: כִּפְלַ֖יִם | Gematria (Abs): 180 | Atbash: לוכמי
+  Word: בְּ | Gematria (Abs): 2 | Atbash: ש
+  Word: כָל־ | Gematria (Abs): 50 | Atbash: לכ
+  Word: חַטֹּאתֶֽיהָ׃ ס | Gematria (Abs): 493 | Atbash: סנתאמצח
+
+Analyzing Isa.40.3:
+  Word: קֹ֣ול | Gematria (Abs): 136 | Atbash: דפכ
+  Word: קֹורֵ֔א | Gematria (Abs): 307 | Atbash: דפגת
+  Word: בַּ | Gematria (Abs): 2 | Atbash: ש
+  Word:  | Gematria (Abs): 0 | Atbash:
+  Word: מִּדְבָּ֕ר | Gematria (Abs): 246 | Atbash: יקשג
+  Word: פַּנּ֖וּ | Gematria (Abs): 136 | Atbash: וטפ
+  Word: דֶּ֣רֶךְ | Gematria (Abs): 224 | Atbash: קגל
+  Word: יְהוָ֑ה | Gematria (Abs): 26 | Atbash: מצפצ
+  Word: יַשְּׁרוּ֙ | Gematria (Abs): 516 | Atbash: מבגפ
+  Word: בָּ | Gematria (Abs): 2 | Atbash: ש
+  Word:  | Gematria (Abs): 0 | Atbash:
+  Word: עֲרָבָ֔ה | Gematria (Abs): 277 | Atbash: זגשצ
+  Word: מְסִלָּ֖ה | Gematria (Abs): 135 | Atbash: יחכצ
+  Word: לֵ | Gematria (Abs): 30 | Atbash: כ
+  Word: אלֹהֵֽינוּ׃ | Gematria (Abs): 102 | Atbash: תכצמטפ
+
+Analyzing Isa.40.4:
+  Word: כָּל־ | Gematria (Abs): 50 | Atbash: לכ
+  Word: גֶּיא֙ | Gematria (Abs): 14 | Atbash: רמת
+  Word: יִנָּשֵׂ֔א | Gematria (Abs): 361 | Atbash: מטבת
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: כָל־ | Gematria (Abs): 50 | Atbash: לכ
+  Word: הַ֥ר | Gematria (Abs): 205 | Atbash: צג
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: גִבְעָ֖ה | Gematria (Abs): 80 | Atbash: רשזצ
+  Word: יִשְׁפָּ֑לוּ | Gematria (Abs): 426 | Atbash: מבוכפ
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: הָיָ֤ה | Gematria (Abs): 20 | Atbash: צמצ
+  Word: הֶֽ | Gematria (Abs): 5 | Atbash: צ
+  Word: עָקֹב֙ | Gematria (Abs): 172 | Atbash: זדש
+  Word: לְ | Gematria (Abs): 30 | Atbash: כ
+  Word: מִישֹׁ֔ור | Gematria (Abs): 556 | Atbash: ימבפג
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: הָ | Gematria (Abs): 5 | Atbash: צ
+  Word: רְכָסִ֖ים | Gematria (Abs): 330 | Atbash: גלחמי
+  Word: לְ | Gematria (Abs): 30 | Atbash: כ
+  Word: בִקְעָֽה׃ | Gematria (Abs): 177 | Atbash: שדזצ
+
+Analyzing Isa.40.5:
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: נִגְלָ֖ה | Gematria (Abs): 88 | Atbash: טרכצ
+  Word: כְּבֹ֣וד | Gematria (Abs): 32 | Atbash: לשפק
+  Word: יְהוָ֑ה | Gematria (Abs): 26 | Atbash: מצפצ
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: רָא֤וּ | Gematria (Abs): 207 | Atbash: גתפ
+  Word: כָל־ | Gematria (Abs): 50 | Atbash: לכ
+  Word: בָּשָׂר֙ | Gematria (Abs): 502 | Atbash: שבג
+  Word: יַחְדָּ֔ו | Gematria (Abs): 28 | Atbash: מסקפ
+  Word: כִּ֛י | Gematria (Abs): 30 | Atbash: למ
+  Word: פִּ֥י | Gematria (Abs): 90 | Atbash: ומ
+  Word: יְהוָ֖ה | Gematria (Abs): 26 | Atbash: מצפצ
+  Word: דִּבֵּֽר׃ ס | Gematria (Abs): 266 | Atbash: קשגח
+
+Analyzing Isa.40.6:
+  Word: קֹ֚ול | Gematria (Abs): 136 | Atbash: דפכ
+  Word: אֹמֵ֣ר | Gematria (Abs): 241 | Atbash: תיג
+  Word: קְרָ֔א | Gematria (Abs): 301 | Atbash: דגת
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: אָמַ֖ר | Gematria (Abs): 241 | Atbash: תיג
+  Word: מָ֣ה | Gematria (Abs): 45 | Atbash: יצ
+  Word: אֶקְרָ֑א | Gematria (Abs): 302 | Atbash: תדגת
+  Word: כָּל־ | Gematria (Abs): 50 | Atbash: לכ
+  Word: הַ | Gematria (Abs): 5 | Atbash: צ
+  Word: בָּשָׂ֣ר | Gematria (Abs): 502 | Atbash: שבג
+  Word: חָצִ֔יר | Gematria (Abs): 308 | Atbash: סהמג
+  Word: וְ | Gematria (Abs): 6 | Atbash: פ
+  Word: כָל־ | Gematria (Abs): 50 | Atbash: לכ
+  Word: חַסְדֹּ֖ו | Gematria (Abs): 78 | Atbash: סחקפ
+  Word: כְּ | Gematria (Abs): 20 | Atbash: ל
+  Word: צִ֥יץ | Gematria (Abs): 190 | Atbash: המה
+  Word: הַ | Gematria (Abs): 5 | Atbash: צ
+  Word: שָּׂדֶֽה׃ | Gematria (Abs): 309 | Atbash: בקצ
+
+Analyzing Isa.40.7:
+  Word: יָבֵ֤שׁ | Gematria (Abs): 312 | Atbash: משב
+  Word: חָצִיר֙ | Gematria (Abs): 308 | Atbash: סהמג
+  Word: נָ֣בֵֽל | Gematria (Abs): 82 | Atbash: טשכ
+  Word: צִ֔יץ | Gematria (Abs): 190 | Atbash: המה
+  Word: כִּ֛י | Gematria (Abs): 30 | Atbash: למ
+  Word: ר֥וּחַ | Gematria (Abs): 214 | Atbash: גפס
+  Word: יְהוָ֖ה | Gematria (Abs): 26 | Atbash: מצפצ
+  Word: נָ֣שְׁבָה | Gematria (Abs): 357 | Atbash: טבשצ
+  Word: בֹּ֑ו | Gematria (Abs): 8 | Atbash: שפ
+  Word: אָכֵ֥ן | Gematria (Abs): 71 | Atbash: תלט
+  Word: חָצִ֖יר | Gematria (Abs): 308 | Atbash: סהמג
+  Word: הָ | Gematria (Abs): 5 | Atbash: צ
+  Word: עָֽם׃ | Gematria (Abs): 110 | Atbash: זי
+
+Analyzing Isa.40.8:
+  Word: יָבֵ֥שׁ | Gematria (Abs): 312 | Atbash: משב
+  Word: חָצִ֖יר | Gematria (Abs): 308 | Atbash: סהמג
+  Word: נָ֣בֵֽל | Gematria (Abs): 82 | Atbash: טשכ
+  Word: צִ֑יץ | Gematria (Abs): 190 | Atbash: המה
+  Word: וּ | Gematria (Abs): 6 | Atbash: פ
+  Word: דְבַר־ | Gematria (Abs): 206 | Atbash: קשג
+  Word: אֱלֹהֵ֖ינוּ | Gematria (Abs): 102 | Atbash: תכצמטפ
+  Word: יָק֥וּם | Gematria (Abs): 156 | Atbash: מדפי
+  Word: לְ | Gematria (Abs): 30 | Atbash: כ
+  Word: עֹולָֽם׃ ס | Gematria (Abs): 206 | Atbash: זפכיח
+
+Analyzing Isa.40.9:
+  Word: עַ֣ל | Gematria (Abs): 100 | Atbash: זכ
+  Word: הַר־ | Gematria (Abs): 205 | Atbash: צג
+  Word: גָּבֹ֤הַ | Gematria (Abs): 10 | Atbash: רשצ
+  Word: עֲלִי־ | Gematria (Abs): 110 | Atbash: זכמ
+  Word: לָךְ֙ | Gematria (Abs): 50 | Atbash: כל
+  Word: מְבַשֶּׂ֣רֶת | Gematria (Abs): 942 | Atbash: ישבגא
+  Word: צִיֹּ֔ון | Gematria (Abs): 156 | Atbash: המפט
+  Word: הָרִ֤ימִי | Gematria (Abs): 265 | Atbash: צגמימ
+  Word: בַ | Gematria (Abs): 2 | Atbash: ש
+  Word:  | Gematria (Abs): 0 | Atbash:
+  Word: כֹּ֨חַ֙ | Gematria (Abs): 28 | Atbash: לס
+  Word: קֹולֵ֔ךְ | Gematria (Abs): 156 | Atbash: דפכל
+  Word: מְבַשֶּׂ֖רֶת | Gematria (Abs): 942 | Atbash: ישבגא
+  Word: יְרוּשָׁלִָ֑ם | Gematria (Abs): 586 | Atbash: מגפבכי
+  Word: הָרִ֨ימִי֙ | Gematria (Abs): 265 | Atbash: צגמימ
+  Word: אַל־ | Gematria (Abs): 31 | Atbash: תכ
+  Word: תִּירָ֔אִי | Gematria (Abs): 621 | Atbash: אמגתמ
+  Word: אִמְרִי֙ | Gematria (Abs): 251 | Atbash: תיגמ
+  Word: לְ | Gematria (Abs): 30 | Atbash: כ
+  Word: עָרֵ֣י | Gematria (Abs): 280 | Atbash: זגמ
+  Word: יְהוּדָ֔ה | Gematria (Abs): 30 | Atbash: מצפקצ
+  Word: הִנֵּ֖ה | Gematria (Abs): 60 | Atbash: צטצ
+  Word: אֱלֹהֵיכֶֽם׃ | Gematria (Abs): 106 | Atbash: תכצמלי
+
+Analyzing Isa.40.10:
+  Word: הִנֵּ֨ה | Gematria (Abs): 60 | Atbash: צטצ
+  Word: אֲדֹנָ֤י | Gematria (Abs): 65 | Atbash: תקטמ
+  Word: יְהוִה֙ | Gematria (Abs): 26 | Atbash: מצפצ
+  Word: בְּ | Gematria (Abs): 2 | Atbash: ש
+  Word: חָזָ֣ק | Gematria (Abs): 115 | Atbash: סעד
+  Word: יָבֹ֔וא | Gematria (Abs): 19 | Atbash: משפת
+  Word: וּ | Gematria (Abs): 6 | Atbash: פ
+  Word: זְרֹעֹ֖ו | Gematria (Abs): 283 | Atbash: עגזפ
+  Word: מֹ֣שְׁלָה | Gematria (Abs): 375 | Atbash: יבכצ
+  Word: לֹ֑ו | Gematria (Abs): 36 | Atbash: כפ
+  Word: הִנֵּ֤ה | Gematria (Abs): 60 | Atbash: צטצ
+  Word: שְׂכָרֹו֙ | Gematria (Abs): 526 | Atbash: בלגפ
+  Word: אִתֹּ֔ו | Gematria (Abs): 407 | Atbash: תאפ
+  Word: וּ | Gematria (Abs): 6 | Atbash: פ
+  Word: פְעֻלָּתֹ֖ו | Gematria (Abs): 586 | Atbash: וזכאפ
+  Word: לְ | Gematria (Abs): 30 | Atbash: כ
+  Word: פָנָֽיו׃ | Gematria (Abs): 146 | Atbash: וטמפ
+
+Analyzing Isa.40.11:
+  Word: כְּ | Gematria (Abs): 20 | Atbash: ל
+  Word: רֹעֶה֙ | Gematria (Abs): 275 | Atbash: גזצ
+  Word: עֶדְרֹ֣ו | Gematria (Abs): 280 | Atbash: זקגפ
+  Word: יִרְעֶ֔ה | Gematria (Abs): 285 | Atbash: מגזצ
+  Word: בִּ | Gematria (Abs): 2 | Atbash: ש
+  Word: זְרֹעֹו֙ | Gematria (Abs): 283 | Atbash: עגזפ
+  Word: יְקַבֵּ֣ץ | Gematria (Abs): 202 | Atbash: מדשה
+  Word: טְלָאִ֔ים | Gematria (Abs): 90 | Atbash: נכתמי
+  Word: וּ | Gematria (Abs): 6 | Atbash: פ
+  Word: בְ | Gematria (Abs): 2 | Atbash: ש
+  Word: חֵיקֹ֖ו | Gematria (Abs): 124 | Atbash: סמדפ
+  Word: יִשָּׂ֑א | Gematria (Abs): 311 | Atbash: מבת
+  Word: עָלֹ֖ות | Gematria (Abs): 506 | Atbash: זכפא
+  Word: יְנַהֵֽל׃ ס | Gematria (Abs): 155 | Atbash: מטצכח
