@@ -324,6 +324,9 @@ export interface WordExtended extends Word {
   atbash: string | null;
   albam: string | null;
   atbah: string | null;
+  atbash_match?: StrongsLexicon | null;
+  albam_match?: StrongsLexicon | null;
+  atbah_match?: StrongsLexicon | null;
   verse_osis: string | null;
   verse_text: string | null;
   verse_english: string | null;

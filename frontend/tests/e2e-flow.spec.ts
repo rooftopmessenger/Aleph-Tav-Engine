@@ -124,6 +124,15 @@ test('Cryptographic visualization and search flow', async ({ page }) => {
   await expect(page.locator('h1:has-text("Word Cryptographic Analysis")')).toBeVisible({ timeout: 10000 });
   await expect(page.locator('span:has-text("Absolute Gematria")')).toBeVisible({ timeout: 5000 });
 
+  // Let's navigate to Babylon (word ID 262102) to verify Lexical Match badge/text
+  console.log('Navigating to Babylon cryptography page to verify Lexical Match badge...');
+  await page.goto('http://localhost:3000/cryptography/262102');
+
+  const lexicalMatchBadge = page.locator('span:has-text("Lexical Match")').first();
+  await expect(lexicalMatchBadge).toBeVisible({ timeout: 10000 });
+  const sheshachText = page.locator('span:has-text("Matches H8347: Babylon")');
+  await expect(sheshachText).toBeVisible({ timeout: 5000 });
+
   // Return back to reader
   console.log('Returning to interlinear reader...');
   const returnButton = page.locator('a:has-text("Return to Interlinear Reading")');

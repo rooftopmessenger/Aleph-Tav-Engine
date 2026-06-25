@@ -179,7 +179,22 @@ export default function WordCryptographyPage() {
               <div className="flex justify-between items-center bg-[#070707] p-4 rounded-xl border border-zinc-850">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-wide">Atbash Cipher</span>
-                  <span className="text-[9px] text-neutral-600">Reverses the Hebrew alphabet (aleph &rarr; tav).</span>
+                  <span className="text-[9px] text-neutral-600 mb-1">Reverses the Hebrew alphabet (aleph &rarr; tav).</span>
+                  {word.atbash_match ? (
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                      <span className="text-[10px] text-neutral-300 italic font-medium">
+                        {word.atbash_match.transliteration || word.atbash_match.lemma}
+                      </span>
+                      <span className="px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[8px] font-bold rounded uppercase tracking-wider">
+                        Lexical Match
+                      </span>
+                      <span className="text-[10px] text-neutral-500">
+                        Matches {word.atbash_match.strongs_number}: {word.atbash_match.gloss}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-[9px] text-neutral-650 mt-1 italic">No lexical match</span>
+                  )}
                 </div>
                 <span className="text-xl font-serif font-black text-teal-400">{word.atbash ?? '—'}</span>
               </div>
@@ -187,7 +202,22 @@ export default function WordCryptographyPage() {
               <div className="flex justify-between items-center bg-[#070707] p-4 rounded-xl border border-zinc-850">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-wide">Albam Cipher</span>
-                  <span className="text-[9px] text-neutral-600">Shifts alphabet by 11 letters (half rotation).</span>
+                  <span className="text-[9px] text-neutral-600 mb-1">Shifts alphabet by 11 letters (half rotation).</span>
+                  {word.albam_match ? (
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                      <span className="text-[10px] text-neutral-300 italic font-medium">
+                        {word.albam_match.transliteration || word.albam_match.lemma}
+                      </span>
+                      <span className="px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[8px] font-bold rounded uppercase tracking-wider">
+                        Lexical Match
+                      </span>
+                      <span className="text-[10px] text-neutral-500">
+                        Matches {word.albam_match.strongs_number}: {word.albam_match.gloss}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-[9px] text-neutral-650 mt-1 italic">No lexical match</span>
+                  )}
                 </div>
                 <span className="text-xl font-serif font-black text-teal-400">{word.albam ?? '—'}</span>
               </div>
@@ -195,7 +225,22 @@ export default function WordCryptographyPage() {
               <div className="flex justify-between items-center bg-[#070707] p-4 rounded-xl border border-zinc-850">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-wide">Atbah Cipher</span>
-                  <span className="text-[9px] text-neutral-600">Alphabet replacement where sum equals 9, 19, etc.</span>
+                  <span className="text-[9px] text-neutral-600 mb-1">Alphabet replacement where sum equals 9, 19, etc.</span>
+                  {word.atbah_match ? (
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                      <span className="text-[10px] text-neutral-300 italic font-medium">
+                        {word.atbah_match.transliteration || word.atbah_match.lemma}
+                      </span>
+                      <span className="px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[8px] font-bold rounded uppercase tracking-wider">
+                        Lexical Match
+                      </span>
+                      <span className="text-[10px] text-neutral-500">
+                        Matches {word.atbah_match.strongs_number}: {word.atbah_match.gloss}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-[9px] text-neutral-650 mt-1 italic">No lexical match</span>
+                  )}
                 </div>
                 <span className="text-xl font-serif font-black text-teal-400">{word.atbah ?? '—'}</span>
               </div>

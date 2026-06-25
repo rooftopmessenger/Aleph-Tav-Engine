@@ -102,6 +102,10 @@ class WordDetailResponse(BaseModel):
     
     lexicon: Optional[StrongsLexiconSchema] = None
     
+    atbash_match: Optional[StrongsLexiconSchema] = None
+    albam_match: Optional[StrongsLexiconSchema] = None
+    atbah_match: Optional[StrongsLexiconSchema] = None
+    
     # Context references
     verse_osis: Optional[str] = None
     verse_text: Optional[str] = None
@@ -519,6 +523,30 @@ async def get_verse(osis_id: str, db: DbSession):
     verse.words.sort(key=lambda w: w.word_index)
     return verse
 
+_normalized_lexicon_cache = None
+
+async def get_normalized_lexicon_cache(db: AsyncSession):
+    global _normalized_lexicon_cache
+    if _normalized_lexicon_cache is not None:
+        return _normalized_lexicon_cache
+
+    from utils.normalization import normalize_hebrew_text
+    
+    stmt = select(StrongsLexicon)
+    result = await db.execute(stmt)
+    entries = result.scalars().all()
+    
+    cache = {}
+    for entry in entries:
+        if not entry.lemma:
+            continue
+        norm = normalize_hebrew_text(entry.lemma, keep_spaces=False)
+        if norm and norm not in cache:
+            cache[norm] = entry
+            
+    _normalized_lexicon_cache = cache
+    return _normalized_lexicon_cache
+
 @app.get("/api/words/{word_id}", response_model=WordDetailResponse)
 async def get_word_detail(word_id: int, db: DbSession):
     """
@@ -541,6 +569,12 @@ async def get_word_detail(word_id: int, db: DbSession):
             detail=f"Word with ID {word_id} not found."
         )
         
+    cache = await get_normalized_lexicon_cache(db)
+    
+    atbash_match = cache.get(word.atbash) if word.atbash else None
+    albam_match = cache.get(word.albam) if word.albam else None
+    atbah_match = cache.get(word.atbah) if word.atbah else None
+        
     return WordDetailResponse(
         id=word.id,
         verse_id=word.verse_id,
@@ -559,6 +593,9 @@ async def get_word_detail(word_id: int, db: DbSession):
         albam=word.albam,
         atbah=word.atbah,
         lexicon=word.lexicon,
+        atbash_match=atbash_match,
+        albam_match=albam_match,
+        atbah_match=atbah_match,
         verse_osis=word.verse.osis_id if word.verse else None,
         verse_text=word.verse.hebrew_text if word.verse else None,
         verse_english=word.verse.english_text if word.verse else None
