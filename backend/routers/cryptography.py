@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, List
 
 from utils.ciphers import atbash_cipher, albam_cipher, atbah_cipher
 from utils.gematria import calculate_gematria
@@ -23,6 +23,12 @@ class CryptographyResponse(BaseModel):
     gematria_ordinal: int
     gematria_reduced: int
 
+class BatchCryptographyRequest(BaseModel):
+    texts: List[str]
+
+class BatchCryptographyResponse(BaseModel):
+    results: List[CryptographyResponse]
+
 @router.post("/analyze", response_model=CryptographyResponse)
 def analyze_cryptography(request: CryptographyRequest):
     # Normalize the Hebrew text, ignoring spaces and non-Hebrew characters
@@ -42,3 +48,19 @@ def analyze_cryptography(request: CryptographyRequest):
         gematria_ordinal=calculate_gematria(clean_text, "ordinal"),
         gematria_reduced=calculate_gematria(clean_text, "reduced"),
     )
+
+@router.post("/analyze/batch", response_model=BatchCryptographyResponse)
+def analyze_cryptography_batch(request: BatchCryptographyRequest):
+    results = []
+    for text in request.texts:
+        clean_text = normalize_hebrew_text(text, keep_spaces=False)
+        results.append(CryptographyResponse(
+            text=clean_text,
+            atbash=atbash_cipher(clean_text),
+            albam=albam_cipher(clean_text),
+            atbah=atbah_cipher(clean_text),
+            gematria_absolute=calculate_gematria(clean_text, "absolute"),
+            gematria_ordinal=calculate_gematria(clean_text, "ordinal"),
+            gematria_reduced=calculate_gematria(clean_text, "reduced"),
+        ))
+    return BatchCryptographyResponse(results=results)
