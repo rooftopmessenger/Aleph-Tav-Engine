@@ -77,7 +77,7 @@ async def search_cryptography(
     Requires at least one search filter query parameter.
     """
     # Build query joining verse relation for context
-    stmt = select(Word).options(joinedload(Word.verse)).limit(limit)
+    stmt = select(Word).options(joinedload(Word.verse))
     
     # Apply query filters
     filters = []
@@ -100,7 +100,7 @@ async def search_cryptography(
             detail="At least one search filter (gematria_* or cipher name) must be provided."
         )
         
-    stmt = stmt.where(*filters)
+    stmt = stmt.where(*filters).order_by(Word.bhs_sort).limit(limit)
     
     result = await db.execute(stmt)
     words = result.scalars().all()

@@ -20,6 +20,12 @@ export interface Word {
   morph_detail: string | null;
   english_gloss: string | null;
   lexicon: StrongsLexicon | null;
+  gematria_absolute?: number | null;
+  gematria_ordinal?: number | null;
+  gematria_reduced?: number | null;
+  atbash?: string | null;
+  albam?: string | null;
+  atbah?: string | null;
 }
 
 export interface Verse {
@@ -246,3 +252,89 @@ export async function updateSavedNote(
 
   return res.json();
 }
+
+export interface Book {
+  id: number;
+  osis_code: string;
+  name: string;
+  testament: string;
+}
+
+export interface CryptographySearchQueryParams {
+  gematria_absolute?: number | null;
+  gematria_ordinal?: number | null;
+  gematria_reduced?: number | null;
+  atbash?: string | null;
+  albam?: string | null;
+  atbah?: string | null;
+  limit?: number;
+}
+
+export interface CryptographySearchResponseWord {
+  id: number;
+  verse_id: number;
+  bhs_sort: number;
+  word_index: number;
+  hebrew_segment: string;
+  transliteration: string | null;
+  strongs_number: string | null;
+  morph_code: string | null;
+  morph_detail: string | null;
+  english_gloss: string | null;
+  gematria_absolute: number | null;
+  gematria_ordinal: number | null;
+  gematria_reduced: number | null;
+  atbash: string | null;
+  albam: string | null;
+  atbah: string | null;
+  verse_osis: string | null;
+  verse_text: string | null;
+}
+
+export async function fetchBooks(): Promise<Book[]> {
+  const res = await fetch(`${API_BASE_URL}/api/books`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch books');
+  }
+  return res.json();
+}
+
+export async function searchCryptography(params: CryptographySearchQueryParams): Promise<CryptographySearchResponseWord[]> {
+  const query = new URLSearchParams();
+  if (params.gematria_absolute !== undefined && params.gematria_absolute !== null) query.append('gematria_absolute', String(params.gematria_absolute));
+  if (params.gematria_ordinal !== undefined && params.gematria_ordinal !== null) query.append('gematria_ordinal', String(params.gematria_ordinal));
+  if (params.gematria_reduced !== undefined && params.gematria_reduced !== null) query.append('gematria_reduced', String(params.gematria_reduced));
+  if (params.atbash) query.append('atbash', params.atbash);
+  if (params.albam) query.append('albam', params.albam);
+  if (params.atbah) query.append('atbah', params.atbah);
+  if (params.limit !== undefined) query.append('limit', String(params.limit));
+
+  const res = await fetch(`${API_BASE_URL}/api/search/cryptography?${query.toString()}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: 'Failed to search cryptography.' }));
+    throw new Error(err.detail || 'Failed to search cryptography.');
+  }
+  return res.json();
+}
+
+export interface WordExtended extends Word {
+  gematria_absolute: number | null;
+  gematria_ordinal: number | null;
+  gematria_reduced: number | null;
+  atbash: string | null;
+  albam: string | null;
+  atbah: string | null;
+  verse_osis: string | null;
+  verse_text: string | null;
+  verse_english: string | null;
+}
+
+export async function fetchWordDetail(wordId: number): Promise<WordExtended> {
+  const res = await fetch(`${API_BASE_URL}/api/words/${wordId}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch word with ID ${wordId}`);
+  }
+  return res.json();
+}
+
+

@@ -79,6 +79,34 @@ class WordSchema(BaseModel):
     # Eagerly load lexicon mappings for interlinear popups
     lexicon: Optional[StrongsLexiconSchema] = None
 
+class WordDetailResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    
+    id: int
+    verse_id: int
+    bhs_sort: int
+    word_index: int
+    hebrew_segment: str
+    transliteration: Optional[str] = None
+    strongs_number: Optional[str] = None
+    morph_code: Optional[str] = None
+    morph_detail: Optional[str] = None
+    english_gloss: Optional[str] = None
+    
+    gematria_absolute: Optional[int] = None
+    gematria_ordinal: Optional[int] = None
+    gematria_reduced: Optional[int] = None
+    atbash: Optional[str] = None
+    albam: Optional[str] = None
+    atbah: Optional[str] = None
+    
+    lexicon: Optional[StrongsLexiconSchema] = None
+    
+    # Context references
+    verse_osis: Optional[str] = None
+    verse_text: Optional[str] = None
+    verse_english: Optional[str] = None
+
 class VerseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
@@ -490,6 +518,51 @@ async def get_verse(osis_id: str, db: DbSession):
     # Sort the nested word segments by their word_index position in the verse
     verse.words.sort(key=lambda w: w.word_index)
     return verse
+
+@app.get("/api/words/{word_id}", response_model=WordDetailResponse)
+async def get_word_detail(word_id: int, db: DbSession):
+    """
+    Fetch a single word segment by its ID, eagerly loading its lexicon entry and verse context.
+    """
+    stmt = (
+        select(Word)
+        .where(Word.id == word_id)
+        .options(
+            joinedload(Word.lexicon),
+            joinedload(Word.verse)
+        )
+    )
+    result = await db.execute(stmt)
+    word = result.unique().scalar_one_or_none()
+    
+    if not word:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Word with ID {word_id} not found."
+        )
+        
+    return WordDetailResponse(
+        id=word.id,
+        verse_id=word.verse_id,
+        bhs_sort=word.bhs_sort,
+        word_index=word.word_index,
+        hebrew_segment=word.hebrew_segment,
+        transliteration=word.transliteration,
+        strongs_number=word.strongs_number,
+        morph_code=word.morph_code,
+        morph_detail=word.morph_detail,
+        english_gloss=word.english_gloss,
+        gematria_absolute=word.gematria_absolute,
+        gematria_ordinal=word.gematria_ordinal,
+        gematria_reduced=word.gematria_reduced,
+        atbash=word.atbash,
+        albam=word.albam,
+        atbah=word.atbah,
+        lexicon=word.lexicon,
+        verse_osis=word.verse.osis_id if word.verse else None,
+        verse_text=word.verse.hebrew_text if word.verse else None,
+        verse_english=word.verse.english_text if word.verse else None
+    )
 
 @app.get("/api/chapters/{book}/{chapter}", response_model=List[VerseSchema])
 async def get_chapter(book: str, chapter: int, db: DbSession):

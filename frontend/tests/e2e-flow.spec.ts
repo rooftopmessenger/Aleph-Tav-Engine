@@ -99,3 +99,84 @@ test('E2E auth and note-creation flow', async ({ page }) => {
   await expect(noteSelector).toBeVisible({ timeout: 8000 });
   console.log('E2E Test Flow completed successfully!');
 });
+
+test('Cryptographic visualization and search flow', async ({ page }) => {
+  // 1. Navigate to read page
+  console.log('Navigating to http://localhost:3000/read/Gen.1.1...');
+  await page.goto('http://localhost:3000/read/Gen.1.1');
+
+  // 2. Click a Hebrew word card (Microscope)
+  console.log('Verifying interlinear word hover/click (Microscope)...');
+  // Find the first inline Hebrew word element
+  const wordCard = page.locator('[data-testid="hebrew-word"]').first();
+  await expect(wordCard).toBeVisible({ timeout: 5000 });
+  // Click on the word card to load it in the lexicon sidebar
+  await wordCard.click();
+  console.log('Clicked word card, checking Lexicon sidebar...');
+  
+  // Click View Cryptographic Analysis to open the full-screen page
+  const analysisButton = page.locator('a:has-text("View Cryptographic Analysis")');
+  await expect(analysisButton).toBeVisible({ timeout: 5000 });
+  console.log('Navigating to dedicated word cryptography page...');
+  await analysisButton.click();
+
+  // Verify full-screen cryptographic dashboard is loaded
+  await expect(page.locator('h1:has-text("Word Cryptographic Analysis")')).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('span:has-text("Absolute Gematria")')).toBeVisible({ timeout: 5000 });
+
+  // Return back to reader
+  console.log('Returning to interlinear reader...');
+  const returnButton = page.locator('a:has-text("Return to Interlinear Reading")');
+  await expect(returnButton).toBeVisible({ timeout: 5000 });
+  await returnButton.click();
+  
+  // 3. Verify Density Heatmap (Analytics)
+  console.log('Checking Chapter Analytics (Density Heatmap)...');
+  // Toggle the analytics section
+  const toggleChartButton = page.locator('button:has-text("Show Chapter Analytics")');
+  await expect(toggleChartButton).toBeVisible();
+  await toggleChartButton.click();
+  
+  // Verify heatmap is shown
+  const heatmap = page.locator('[data-testid="density-heatmap"]');
+  await expect(heatmap).toBeVisible({ timeout: 5000 });
+  
+  // Toggle to average mode
+  const avgButton = page.locator('button:has-text("Average")');
+  await expect(avgButton).toBeVisible();
+  await avgButton.click();
+  
+  // Toggle back to cumulative mode
+  const cumButton = page.locator('button:has-text("Cumulative")');
+  await expect(cumButton).toBeVisible();
+  await cumButton.click();
+
+  // 4. Navigate to /search
+  console.log('Navigating to http://localhost:3000/search...');
+  await page.goto('http://localhost:3000/search');
+
+  // Switch to Cryptographic Search tab
+  const cryptoTabButton = page.locator('button:has-text("Cryptographic Search")');
+  await expect(cryptoTabButton).toBeVisible({ timeout: 5000 });
+  await cryptoTabButton.click();
+
+  // 5. Query absolute Gematria = 26 (Telescope)
+  console.log('Executing Cryptographic Search for Absolute Gematria 26 (Telescope)...');
+  const absInput = page.locator('input[placeholder="e.g. 26"]').first();
+  await absInput.fill('26');
+  
+  const searchButton = page.locator('button:has-text("Execute Search")');
+  await searchButton.click();
+
+  // Verify results are loaded in the table
+  console.log('Verifying search results table...');
+  const resultsTable = page.locator('table');
+  await expect(resultsTable).toBeVisible({ timeout: 10000 });
+  
+  // Verify that YHWH results show up (e.g. Gen.2.4)
+  const yhwhRow = page.locator('td:has-text("Gen.2.4")').first();
+  await expect(yhwhRow).toBeVisible({ timeout: 5000 });
+  
+  console.log('Cryptographic Search and Visualization flow completed successfully!');
+});
+
