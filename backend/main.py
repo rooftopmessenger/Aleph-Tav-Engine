@@ -20,6 +20,7 @@ import bcrypt
 
 from ingest_db import Book, StrongsLexicon, Verse, Word, User, SavedNote, normalize_strongs
 from services.ai_service import OllamaService
+from routers import cryptography
 
 # ==========================================
 # 1. Pydantic V2 Schemas for Serialization
@@ -261,6 +262,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(cryptography.router)
 
 # ==========================================
 # 5. API Endpoints
