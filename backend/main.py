@@ -443,6 +443,17 @@ async def update_note(note_id: int, note_data: SavedNoteUpdateSchema, current_us
     return updated_note
 
 
+@app.get("/api/books", response_model=List[BookSchema])
+async def get_books(db: DbSession):
+    """
+    List all books in the database.
+    """
+    stmt = select(Book).order_by(Book.id)
+    res = await db.execute(stmt)
+    books = res.scalars().all()
+    return books
+
+
 @app.get("/api/verses/{osis_id}", response_model=VerseSchema)
 async def get_verse(osis_id: str, db: DbSession):
     """

@@ -8,6 +8,10 @@ from utils.normalization import (
 from models.cryptography import TopographicalMapping, CryptographicArray
 from ingest_db import CryptographicLetter
 
+# Import the ciphers and gematria calculators to test them
+from utils.ciphers import atbash_cipher, albam_cipher, atbah_cipher
+from utils.gematria import calculate_gematria
+
 class TestHebrewNormalization(unittest.TestCase):
     
     def test_strip_html_tags(self):
@@ -87,6 +91,37 @@ class TestCryptographicLetterModel(unittest.TestCase):
         self.assertEqual(letter.verse_num, 1)
         self.assertEqual(letter.word_index_in_verse, 2)
         self.assertEqual(letter.letter_index_in_word, 3)
+
+class TestHebrewCiphers(unittest.TestCase):
+    
+    def test_atbash_cipher(self):
+        self.assertEqual(atbash_cipher("אבג"), "תשר")
+        # Kaf Sofit 'ך' maps to standard Kaf 'כ', which ciphers to 'ל'
+        self.assertEqual(atbash_cipher("מלך"), "יכל")
+
+    def test_albam_cipher(self):
+        self.assertEqual(albam_cipher("אבג"), "למנ")
+        # Kaf Sofit 'ך' maps to standard Kaf 'כ', which ciphers to 'ת'
+        self.assertEqual(albam_cipher("מלך"), "באת")
+
+    def test_atbah_cipher(self):
+        self.assertEqual(atbah_cipher("אבג"), "טחז")
+        # Kaf Sofit 'ך' maps to standard Kaf 'כ', which ciphers to 'פ'
+        self.assertEqual(atbah_cipher("מלך"), "סעפ")
+
+class TestHebrewGematria(unittest.TestCase):
+    
+    def test_calculate_gematria_absolute(self):
+        self.assertEqual(calculate_gematria("יהוה", "absolute"), 26)
+        self.assertEqual(calculate_gematria("בראשית", "absolute"), 913)
+
+    def test_calculate_gematria_ordinal(self):
+        self.assertEqual(calculate_gematria("יהוה", "ordinal"), 26)
+        self.assertEqual(calculate_gematria("ברא", "ordinal"), 23)
+
+    def test_calculate_gematria_reduced(self):
+        self.assertEqual(calculate_gematria("יהוה", "reduced"), 8)
+        self.assertEqual(calculate_gematria("בראשית", "reduced"), 4)
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Generated research data and logs
+research_data/
+*.log
+*analysis.txt
