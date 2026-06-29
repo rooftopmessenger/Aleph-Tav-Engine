@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { fetchChapter } from '@/lib/api';
 import ChapterNavigator from '@/components/ChapterNavigator';
 import TheologicalNotes from '@/components/TheologicalNotes';
+import ExportButtonPanel from '@/components/ExportButtonPanel';
 
 interface PageProps {
   searchParams: Promise<{ osis_id?: string }>;
@@ -49,14 +50,17 @@ async function NotesContainer({ osisId }: { osisId: string }) {
         
         {/* Workspace Display */}
         <div className="flex-grow flex flex-col h-full bg-neutral-900/20 border border-neutral-900 rounded-2xl p-6 overflow-hidden">
-          <div className="mb-4">
-            <h2 className="text-xl font-bold text-amber-200">Study Notes Workspace</h2>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-sm font-semibold text-neutral-400">Current Context:</span>
-              <span className="text-sm font-bold text-amber-400 font-mono">{verse.osis_id}</span>
-              <span className="text-neutral-600 text-sm">|</span>
-              <span className="text-neutral-300 text-sm italic truncate max-w-2xl">"{verse.english_text}"</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div className="flex flex-col gap-1">
+              <h2 className="text-xl font-bold text-amber-200">Study Notes Workspace</h2>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-sm font-semibold text-neutral-400">Current Context:</span>
+                <span className="text-sm font-bold text-amber-400 font-mono">{verse.osis_id}</span>
+                <span className="text-neutral-600 text-sm">|</span>
+                <span className="text-neutral-300 text-sm italic truncate max-w-xl">"{verse.english_text}"</span>
+              </div>
             </div>
+            <ExportButtonPanel />
           </div>
           <div className="flex-1 flex flex-col min-h-[500px]">
             <TheologicalNotes 

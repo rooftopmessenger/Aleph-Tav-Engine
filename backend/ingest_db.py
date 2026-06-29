@@ -10,7 +10,7 @@ import io
 import time
 from collections import defaultdict
 from datetime import datetime
-from sqlalchemy import create_engine, ForeignKey, Integer, String, Text, event, update, DateTime, Boolean, select
+from sqlalchemy import create_engine, ForeignKey, Integer, String, Text, Float, event, update, DateTime, Boolean, select
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, sessionmaker
 from pgvector.sqlalchemy import Vector
@@ -20,26 +20,21 @@ from utils.normalization import normalize_hebrew_text
 # 1. Database Configuration & PRAGMAs
 # ==========================================
 
-# Default to local postgresql if not specified
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5433/aleph_tav_db")
+# Strictly use local SQLite database file
+DATABASE_URL = "sqlite:///kjv_strongs.db"
 
-# Convert DATABASE_URL to a sync psycopg URL for the synchronous ingestion engine
-sync_url = DATABASE_URL
-if sync_url.startswith("postgresql+asyncpg://"):
-    sync_url = sync_url.replace("postgresql+asyncpg://", "postgresql+psycopg://")
-elif sync_url.startswith("postgresql://"):
-    sync_url = sync_url.replace("postgresql://", "postgresql+psycopg://")
+engine = create_engine(DATABASE_URL, echo=False)
 
-# Enable foreign key constraints in SQLite for backward compatibility/testing
-if sync_url.startswith("sqlite"):
-    @event.listens_for(Engine, "connect")
-    def set_sqlite_pragma(dbapi_connection, connection_record):
+# Enable foreign key constraints in SQLite
+@event.listens_for(Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    if dbapi_connection.__class__.__module__.startswith("sqlite"):
         cursor = dbapi_connection.cursor()
         cursor.execute("PRAGMA foreign_keys=ON")
         cursor.close()
 
-engine = create_engine(sync_url, echo=False)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 # ==========================================
 # 2. SQLAlchemy 2.0 Declarative Models
@@ -81,7 +76,7 @@ class Verse(Base):
     osis_id: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
     hebrew_text: Mapped[str] = mapped_column(Text, nullable=True)
     english_text: Mapped[str] = mapped_column(Text, nullable=False)
-    embedding: Mapped[list[float]] = mapped_column(Vector(1024), nullable=True)  # Vector embedding for semantic search
+    entropy_score: Mapped[float] = mapped_column(Float, nullable=True)
     
     book: Mapped["Book"] = relationship(back_populates="verses")
     words: Mapped[list["Word"]] = relationship(back_populates="verse")
@@ -150,6 +145,30 @@ class CryptographicLetter(Base):
     letter_index_in_word: Mapped[int] = mapped_column(Integer, nullable=False)
     
     book: Mapped["Book"] = relationship()
+
+class Anomaly(Base):
+    __tablename__ = "anomalies"
+    
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    book: Mapped[str] = mapped_column(String(50), nullable=False)
+    chapter: Mapped[int] = mapped_column(Integer, nullable=False)
+    verse: Mapped[int] = mapped_column(Integer, nullable=False)
+    osis_id: Mapped[str] = mapped_column(String(20), nullable=False)
+    anomaly_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    score: Mapped[float] = mapped_column(Float, nullable=False)
+    notes: Mapped[str] = mapped_column(Text, nullable=True)
+    timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+
+class TempleDimension(Base):
+    __tablename__ = "temple_dimensions"
+    
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    osis_id: Mapped[str] = mapped_column(String(20), ForeignKey("verses.osis_id"), nullable=False)
+    object_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    measurement_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    value: Mapped[float] = mapped_column(Float, nullable=False)
+    
+    verse: Mapped["Verse"] = relationship()
 
 # ==========================================
 # 3. Helper Functions

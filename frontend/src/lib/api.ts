@@ -36,6 +36,7 @@ export interface Verse {
   osis_id: string;
   hebrew_text: string | null;
   english_text: string;
+  entropy_score?: number | null;
   words: Word[];
   direction: string;
 }
@@ -340,4 +341,216 @@ export async function fetchWordDetail(wordId: number): Promise<WordExtended> {
   return res.json();
 }
 
+export interface CryptographyResponse {
+  text: string;
+  atbash: string;
+  albam: string;
+  atbah: string;
+  gematria_absolute: number;
+  gematria_ordinal: number;
+  gematria_reduced: number;
+}
 
+export interface BatchCryptographyResponse {
+  results: CryptographyResponse[];
+}
+
+export async function fetchBatchCryptography(texts: string[]): Promise<BatchCryptographyResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/cryptography/analyze/batch`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ texts }),
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch batch cryptography analysis');
+  }
+  return res.json();
+}
+
+export interface ChapterAggregation {
+  chapter: number;
+  mean_entropy: number;
+  mean_gematria: number;
+}
+
+export interface WordAnalytics {
+  word_index: number;
+  hebrew_segment: string;
+  english_gloss: string | null;
+  gematria_absolute: number | null;
+  entropy_score: number;
+}
+
+export interface VerseAnalytics {
+  osis_id: string;
+  english_text: string;
+  hebrew_text: string | null;
+  words: WordAnalytics[];
+}
+
+export async function fetchBookAnalytics(bookId: number): Promise<ChapterAggregation[]> {
+  const res = await fetch(`${API_BASE_URL}/api/analytics/book/${bookId}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch book analytics for book ID ${bookId}`);
+  }
+  return res.json();
+}
+
+export async function fetchVerseAnalytics(osisId: string): Promise<VerseAnalytics> {
+  const res = await fetch(`${API_BASE_URL}/api/analytics/verse/${osisId}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch verse analytics for OSIS ID ${osisId}`);
+  }
+  return res.json();
+}
+
+export interface StructureComparison {
+  id: number;
+  osis_id: string;
+  object_name: string;
+  measurement_type: string;
+  physical_value: number;
+  gematria_value: number;
+  ratio: number;
+  english_text: string;
+}
+
+export async function fetchStructureComparison(): Promise<StructureComparison[]> {
+  const res = await fetch(`${API_BASE_URL}/api/analytics/compare-structure`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch structural correlation data');
+  }
+  return res.json();
+}
+
+export interface DeltaDimensionDetails {
+  object_name: string;
+  measurement_type: string;
+  value: number;
+}
+
+export interface DeltaTarget {
+  osis_id: string;
+  english_text: string;
+  hebrew_text: string | null;
+  gematria_sum: number;
+  entropy_score: number;
+  dimensions: DeltaDimensionDetails[];
+}
+
+export interface DeltaValue {
+  abs_diff: number;
+  pct_diff: number;
+}
+
+export interface DimensionDelta {
+  measurement_type: string;
+  val_a: number;
+  val_b: number;
+  abs_diff: number;
+  pct_diff: number;
+  scaling_factor: number | null;
+  scaling_type: 'direct' | 'inverse' | 'undefined';
+}
+
+export interface DeltaMetrics {
+  gematria: DeltaValue;
+  entropy: DeltaValue;
+  dimensions: DimensionDelta[];
+}
+
+export interface DeltaResponse {
+  target_a: DeltaTarget;
+  target_b: DeltaTarget;
+  deltas: DeltaMetrics;
+}
+
+export async function fetchDeltaAnalysis(targetA: string, targetB: string): Promise<DeltaResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/analytics/delta?target_a=${targetA}&target_b=${targetB}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch delta analysis between ${targetA} and ${targetB}`);
+  }
+  return res.json();
+}
+
+export interface ElsLexiconEntry {
+  strongs_number: string;
+  lemma: string;
+  transliteration: string | null;
+  gloss: string | null;
+  definition: string | null;
+}
+
+export interface ElsMatch {
+  word: string;
+  start_index: number;
+  skip: number;
+  indices: number[];
+  lexicon_entries: ElsLexiconEntry[];
+}
+
+export interface ElsResponse {
+  osis_id: string;
+  hebrew_text: string | null;
+  consonants: string;
+  matches: ElsMatch[];
+}
+
+export async function fetchElsAnalysis(osisId: string): Promise<ElsResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/analytics/els/${osisId}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch ELS analysis for OSIS ID ${osisId}`);
+  }
+  return res.json();
+}
+
+export interface TemurahMatch {
+  strongs_number: string;
+  lemma: string;
+  transliteration: string | null;
+  gloss: string | null;
+  definition: string | null;
+}
+
+export interface TemurahResponse {
+  word: string;
+  normalized: string;
+  permutation: string;
+  matches: TemurahMatch[];
+}
+
+export interface TopologyNode {
+  id: string;
+  osis_id: string;
+  text: string;
+  similarity: number;
+}
+
+export interface TopologyLink {
+  source: string;
+  target: string;
+  value: number;
+}
+
+export interface TopologyResponse {
+  nodes: TopologyNode[];
+  links: TopologyLink[];
+}
+
+export async function fetchTemurahAnalysis(word: string): Promise<TemurahResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/temurah/${encodeURIComponent(word)}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch Temurah permutations for word ${word}`);
+  }
+  return res.json();
+}
+
+export async function fetchTopologyGraph(query: string, k: number = 15): Promise<TopologyResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/topology/search?q=${encodeURIComponent(query)}&k=${k}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch Semantic Topology for query: ${query}`);
+  }
+  return res.json();
+}

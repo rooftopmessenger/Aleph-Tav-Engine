@@ -1,5 +1,17 @@
 import { test, expect } from '@playwright/test';
 
+async function dismissOnboardingModal(page: any) {
+  const modal = page.locator('[data-testid="getting-started-modal"]');
+  try {
+    await expect(modal).toBeVisible({ timeout: 2000 });
+    await modal.locator('button:has-text("Explore Engine")').click();
+    await expect(modal).not.toBeVisible();
+    console.log('Onboarding modal dismissed.');
+  } catch (e) {
+    console.log('Onboarding modal not visible or already dismissed.');
+  }
+}
+
 test('E2E auth and note-creation flow', async ({ page }) => {
   const email = 'test_auto@example.com';
   const password = 'password123';
@@ -20,6 +32,7 @@ test('E2E auth and note-creation flow', async ({ page }) => {
   console.log('Navigating to http://localhost:3000...');
   try {
     await page.goto('http://localhost:3000', { timeout: 10000 });
+    await dismissOnboardingModal(page);
   } catch (err: any) {
     console.error('Failed to load frontend at http://localhost:3000. Is next dev server running?', err.message);
     throw err;
@@ -104,6 +117,7 @@ test('Cryptographic visualization and search flow', async ({ page }) => {
   // 1. Navigate to read page
   console.log('Navigating to http://localhost:3000/read/Gen.1.1...');
   await page.goto('http://localhost:3000/read/Gen.1.1');
+  await dismissOnboardingModal(page);
 
   // 2. Click a Hebrew word card (Microscope)
   console.log('Verifying interlinear word hover/click (Microscope)...');
@@ -139,26 +153,27 @@ test('Cryptographic visualization and search flow', async ({ page }) => {
   await expect(returnButton).toBeVisible({ timeout: 5000 });
   await returnButton.click();
   
-  // 3. Verify Density Heatmap (Analytics)
-  console.log('Checking Chapter Analytics (Density Heatmap)...');
-  // Toggle the analytics section
-  const toggleChartButton = page.locator('button:has-text("Show Chapter Analytics")');
-  await expect(toggleChartButton).toBeVisible();
-  await toggleChartButton.click();
-  
-  // Verify heatmap is shown
-  const heatmap = page.locator('[data-testid="density-heatmap"]');
-  await expect(heatmap).toBeVisible({ timeout: 5000 });
-  
-  // Toggle to average mode
-  const avgButton = page.locator('button:has-text("Average")');
-  await expect(avgButton).toBeVisible();
-  await avgButton.click();
-  
-  // Toggle back to cumulative mode
-  const cumButton = page.locator('button:has-text("Cumulative")');
-  await expect(cumButton).toBeVisible();
-  await cumButton.click();
+  // 3. Verify Density Chart (Analytics Laboratory)
+  console.log('Checking Chapter Analytics in Analytics Laboratory...');
+  await page.goto('http://localhost:3000/analytics');
+  await dismissOnboardingModal(page);
+
+  // Verify heading
+  await expect(page.locator('h1:has-text("Macro Analytics")')).toBeVisible({ timeout: 10000 });
+
+  // Verify chart title is visible
+  const chartTitle = page.locator('h3:has-text("Cryptographic Averages — Genesis")').first();
+  await expect(chartTitle).toBeVisible({ timeout: 10000 });
+
+  // Verify tab buttons exist and click "Entropy Anomalies"
+  const entropyTabButton = page.locator('button:has-text("Entropy Anomalies")');
+  await expect(entropyTabButton).toBeVisible();
+  await entropyTabButton.click();
+
+  // Verify clicking Gematria Density works
+  const gematriaTabButton = page.locator('button:has-text("Gematria Density")');
+  await expect(gematriaTabButton).toBeVisible();
+  await gematriaTabButton.click();
 
   // 4. Navigate to /search
   console.log('Navigating to http://localhost:3000/search...');
@@ -187,5 +202,51 @@ test('Cryptographic visualization and search flow', async ({ page }) => {
   await expect(yhwhRow).toBeVisible({ timeout: 5000 });
   
   console.log('Cryptographic Search and Visualization flow completed successfully!');
+});
+
+test('PARDES tab restoration and sidebar interaction flow', async ({ page }) => {
+  // 1. Navigate to read page
+  console.log('Navigating to http://localhost:3000/read/Gen.1.1...');
+  await page.goto('http://localhost:3000/read/Gen.1.1');
+  await dismissOnboardingModal(page);
+
+  // 2. Click a Hebrew word card to select it
+  console.log('Selecting a Hebrew word to check tabs...');
+  const wordCard = page.locator('[data-testid="hebrew-word"]').first();
+  await expect(wordCard).toBeVisible({ timeout: 5000 });
+  await wordCard.click();
+
+  // Close the overlay modal so we can interact with the sidebar tabs
+  const closeBtn = page.locator('button[aria-label="Close"]');
+  await expect(closeBtn).toBeVisible({ timeout: 5000 });
+  await closeBtn.click();
+
+  // 3. Verify Lexicon tab is active and visible
+  const lexiconTab = page.locator('button:has-text("Lexicon")');
+  const pardesTab = page.locator('button:has-text("PARDES")');
+  await expect(lexiconTab).toBeVisible({ timeout: 5000 });
+  await expect(pardesTab).toBeVisible({ timeout: 5000 });
+
+  // 4. Verify Lexicon content shows Strongs Definition
+  await expect(page.locator('h3:has-text("Strongs Definition:")')).toBeVisible({ timeout: 5000 });
+
+  // 5. Switch to PARDES tab
+  console.log('Switching to PARDES tab...');
+  await pardesTab.click();
+
+  // 6. Verify PARDES levels are rendered
+  await expect(page.locator('span:has-text("PARDES Analysis")')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('h4:has-text("Peshat (פְּשָׁט — Plain)")')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('h4:has-text("Remez (רֶמֶז — Hint)")')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('h4:has-text("Derash (דְּרַשׁ — Seek)")')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('h4:has-text("Sod (סוֹד — Secret)")')).toBeVisible({ timeout: 5000 });
+
+  // 7. Switch back to Lexicon tab
+  console.log('Switching back to Lexicon tab...');
+  await lexiconTab.click();
+
+  // 8. Verify Lexicon content is shown again
+  await expect(page.locator('h3:has-text("Strongs Definition:")')).toBeVisible({ timeout: 5000 });
+  console.log('PARDES tab E2E flow completed successfully!');
 });
 

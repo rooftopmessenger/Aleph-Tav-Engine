@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import AIPatternSearch from '@/components/AIPatternSearch';
+import LocalSemanticSearch from '@/components/LocalSemanticSearch';
 import CryptographicSearch from '@/components/CryptographicSearch';
 
 interface PageProps {
@@ -26,7 +26,7 @@ export default function SearchPage({ searchParams }: PageProps) {
               : 'text-neutral-400 hover:text-neutral-200'
           }`}
         >
-          AI Semantic Search
+          Local Semantic Search
         </button>
         <button
           onClick={() => setActiveTab('cryptographic')}
@@ -43,7 +43,7 @@ export default function SearchPage({ searchParams }: PageProps) {
       {/* Tab Contents */}
       <div className="flex-1 flex flex-col w-full">
         {activeTab === 'semantic' ? (
-          <AIPatternSearch currentOsisId={osisId} />
+          <LocalSemanticSearch />
         ) : (
           <CryptographicSearch />
         )}
@@ -51,3 +51,4 @@ export default function SearchPage({ searchParams }: PageProps) {
     </div>
   );
 }
+

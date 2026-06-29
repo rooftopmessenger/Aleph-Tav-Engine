@@ -1,0 +1,163 @@
+{
+  "chapter_baselines": {
+    "1Kgs.7": {
+      "mean_verse_gematria": 5252.235294117647,
+      "std_verse_gematria": 2175.6351841337278
+    },
+    "2Chr.3": {
+      "mean_verse_gematria": 4515.823529411765,
+      "std_verse_gematria": 1247.0168749881416
+    }
+  },
+  "architectural_baseline": {
+    "mean_ratio": 482.4603801169592,
+    "std_ratio": 523.5730955726148
+  },
+  "results": [
+    {
+      "osis_id": "1Kgs.7.15",
+      "english_text": "For he cast two pillars of brass, of eighteen cubits high apiece: and a line of twelve cubits did compass either of them about.",
+      "gematria_sum": 6068,
+      "gematria_z_score": 0.3749547313039829,
+      "dimensions": [
+        {
+          "object_name": "Pillar (Jachin/Boaz)",
+          "measurement_type": "height",
+          "physical_value": 18.0,
+          "gematria_to_cubit_ratio": 337.1111111111111,
+          "ratio_z_score": -0.2776102711062423,
+          "is_ratio_outlier": false
+        },
+        {
+          "object_name": "Pillar (Jachin/Boaz)",
+          "measurement_type": "circumference",
+          "physical_value": 12.0,
+          "gematria_to_cubit_ratio": 505.6666666666667,
+          "ratio_z_score": 0.044322916410224525,
+          "is_ratio_outlier": false
+        }
+      ],
+      "anomalies": [
+        {
+          "type": "gematria_high",
+          "score": 6068.0,
+          "notes": "High Gematria Sum: 6068 exceeds threshold of 5987.11 (Mean: 3383.25, SD: 1735.91)"
+        }
+      ]
+    },
+    {
+      "osis_id": "1Kgs.7.16",
+      "english_text": "And he made two chapiters of molten brass, to set upon the tops of the pillars: the height of the one chapiter was five cubits, and the height of the other chapiter was five cubits:",
+      "gematria_sum": 10632,
+      "gematria_z_score": 2.4727329035287746,
+      "dimensions": [
+        {
+          "object_name": "Pillar Capital",
+          "measurement_type": "height",
+          "physical_value": 5.0,
+          "gematria_to_cubit_ratio": 2126.4,
+          "ratio_z_score": 3.1398473943454217,
+          "is_ratio_outlier": true
+        }
+      ],
+      "anomalies": [
+        {
+          "type": "gematria_high",
+          "score": 10632.0,
+          "notes": "High Gematria Sum: 10632 exceeds threshold of 5987.11 (Mean: 3383.25, SD: 1735.91)"
+        }
+      ]
+    },
+    {
+      "osis_id": "1Kgs.7.17",
+      "english_text": "And nets of checker work, and wreaths of chain work, for the chapiters which were upon the top of the pillars; seven for the one chapiter, and seven for the other chapiter.",
+      "gematria_sum": 9388,
+      "gematria_z_score": 1.9009458644736386,
+      "dimensions": [],
+      "anomalies": [
+        {
+          "type": "gematria_high",
+          "score": 9388.0,
+          "notes": "High Gematria Sum: 9388 exceeds threshold of 5987.11 (Mean: 3383.25, SD: 1735.91)"
+        }
+      ]
+    },
+    {
+      "osis_id": "1Kgs.7.18",
+      "english_text": "And he made the pillars, and two rows round about upon the one network, to cover the chapiters that were upon the top, with pomegranates: and so did he for the other chapiter.",
+      "gematria_sum": 8168,
+      "gematria_z_score": 1.3401900866221386,
+      "dimensions": [],
+      "anomalies": [
+        {
+          "type": "gematria_high",
+          "score": 8168.0,
+          "notes": "High Gematria Sum: 8168 exceeds threshold of 5987.11 (Mean: 3383.25, SD: 1735.91)"
+        }
+      ]
+    },
+    {
+      "osis_id": "1Kgs.7.19",
+      "english_text": "And the chapiters that were upon the top of the pillars were of lily work in the porch, four cubits.",
+      "gematria_sum": 4173,
+      "gematria_z_score": -0.49605526789978155,
+      "dimensions": [],
+      "anomalies": []
+    },
+    {
+      "osis_id": "1Kgs.7.20",
+      "english_text": "And the chapiters upon the two pillars had pomegranates also above, over against the belly which was by the network: and the pomegranates were two hundred in rows round about upon the other chapiter.",
+      "gematria_sum": 6736,
+      "gematria_z_score": 0.6819915014718534,
+      "dimensions": [],
+      "anomalies": [
+        {
+          "type": "gematria_high",
+          "score": 6736.0,
+          "notes": "High Gematria Sum: 6736 exceeds threshold of 5987.11 (Mean: 3383.25, SD: 1735.91)"
+        }
+      ]
+    },
+    {
+      "osis_id": "1Kgs.7.21",
+      "english_text": "And he set up the pillars in the porch of the temple: and he set up the right pillar, and called the name thereof Jachin: and he set up the left pillar, and called the name thereof Boaz.",
+      "gematria_sum": 5059,
+      "gematria_z_score": -0.08881787513221676,
+      "dimensions": [],
+      "anomalies": []
+    },
+    {
+      "osis_id": "2Chr.3.15",
+      "english_text": "Also he made before the house two pillars of thirty and five cubits high, and the chapiter that was on the top of each of them was five cubits.",
+      "gematria_sum": 5789,
+      "gematria_z_score": 1.0209777398564412,
+      "dimensions": [
+        {
+          "object_name": "Pillar (Jachin/Boaz)",
+          "measurement_type": "height",
+          "physical_value": 35.0,
+          "gematria_to_cubit_ratio": 165.4,
+          "ratio_z_score": -0.6055704213949356,
+          "is_ratio_outlier": false
+        }
+      ],
+      "anomalies": []
+    },
+    {
+      "osis_id": "2Chr.3.16",
+      "english_text": "And he made chains, as in the oracle, and put them on the heads of the pillars; and made an hundred pomegranates, and put them on the chains.",
+      "gematria_sum": 5898,
+      "gematria_z_score": 1.108386340482665,
+      "dimensions": [],
+      "anomalies": []
+    },
+    {
+      "osis_id": "2Chr.3.17",
+      "english_text": "And he reared up the pillars before the temple, one on the right hand, and the other on the left; and called the name of that on the right hand Jachin, and the name of that on the left Boaz.",
+      "gematria_sum": 3379,
+      "gematria_z_score": -0.911634439127037,
+      "dimensions": [],
+      "anomalies": []
+    }
+  ]
+}

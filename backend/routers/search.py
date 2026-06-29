@@ -15,14 +15,22 @@ router = APIRouter(
     tags=["cryptography-search"]
 )
 
-# Set up database session to avoid circular import with main.py
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5433/aleph_tav_db")
+# Set up SQLite database session to avoid circular import with main.py
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///kjv_strongs.db")
 if DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
-elif DATABASE_URL.startswith("postgresql+psycopg://"):
-    DATABASE_URL = DATABASE_URL.replace("postgresql+psycopg://", "postgresql+asyncpg://")
+elif DATABASE_URL.startswith("sqlite://") and "aiosqlite" not in DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.replace("sqlite://", "sqlite+aiosqlite://")
 
-async_engine = create_async_engine(DATABASE_URL, echo=False, poolclass=NullPool)
+connect_args = {}
+if "sqlite" in DATABASE_URL:
+    connect_args = {"check_same_thread": False}
+
+async_engine = create_async_engine(
+    DATABASE_URL, 
+    echo=False, 
+    connect_args=connect_args
+)
 AsyncSessionLocal = async_sessionmaker(
     bind=async_engine,
     class_=AsyncSession,

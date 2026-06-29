@@ -20,7 +20,7 @@ import bcrypt
 
 from ingest_db import Book, StrongsLexicon, Verse, Word, User, SavedNote, normalize_strongs
 from services.ai_service import OllamaService
-from routers import cryptography, search
+from routers import cryptography, search, semantic_search, analytics, export, els, temurah, topology
 
 # ==========================================
 # 1. Pydantic V2 Schemas for Serialization
@@ -121,6 +121,7 @@ class VerseSchema(BaseModel):
     osis_id: str
     hebrew_text: Optional[str] = None
     english_text: str
+    entropy_score: Optional[float] = None
     
     # Nested word segments to build the interlinear view
     words: List[WordSchema]
@@ -183,16 +184,21 @@ class SavedNoteUpdateSchema(BaseModel):
 # 2. Database Configuration & Dependency Injection
 # ==========================================
 
-# Default database connection string reading from DATABASE_URL
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5433/aleph_tav_db")
-
-# Force using asyncpg driver for async operations
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///kjv_strongs.db")
 if DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
-elif DATABASE_URL.startswith("postgresql+psycopg://"):
-    DATABASE_URL = DATABASE_URL.replace("postgresql+psycopg://", "postgresql+asyncpg://")
+elif DATABASE_URL.startswith("sqlite://") and "aiosqlite" not in DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.replace("sqlite://", "sqlite+aiosqlite://")
 
-async_engine = create_async_engine(DATABASE_URL, echo=False)
+connect_args = {}
+if "sqlite" in DATABASE_URL:
+    connect_args = {"check_same_thread": False}
+
+async_engine = create_async_engine(
+    DATABASE_URL, 
+    echo=False, 
+    connect_args=connect_args
+)
 AsyncSessionLocal = async_sessionmaker(
     bind=async_engine,
     class_=AsyncSession,
@@ -305,6 +311,13 @@ app.add_middleware(
 
 app.include_router(cryptography.router)
 app.include_router(search.router)
+app.include_router(semantic_search.router)
+app.include_router(analytics.router)
+app.include_router(export.router)
+app.include_router(els.router)
+app.include_router(temurah.router)
+app.include_router(topology.router)
+
 
 # ==========================================
 # 5. API Endpoints

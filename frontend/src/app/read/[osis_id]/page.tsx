@@ -41,25 +41,28 @@ async function ChapterContainer({ osisId }: { osisId: string }) {
   try {
     const verses = await fetchChapter(book, chapter);
     return (
-      <div className="flex flex-col gap-8 w-full">
-        <ChapterNavigator 
-          currentBook={book}
-          currentChapter={chapter}
-          currentVerse={verseNum}
-          verseCount={verses.length}
-        />
-        <InterlinearReader verses={verses} targetOsisId={osisId} />
+      <div className="w-full">
+        <InterlinearReader verses={verses} targetOsisId={osisId}>
+          <ChapterNavigator 
+            currentBook={book}
+            currentChapter={chapter}
+            currentVerse={verseNum}
+            verseCount={verses.length}
+          />
+        </InterlinearReader>
       </div>
     );
   } catch (error: any) {
     return (
-      <div className="flex flex-col gap-8 w-full">
-        <ChapterNavigator 
-          currentBook={book}
-          currentChapter={chapter}
-          currentVerse={verseNum}
-          verseCount={50} // Fallback count
-        />
+      <div className="w-full">
+        <div className="max-w-2xl mx-auto mb-6">
+          <ChapterNavigator 
+            currentBook={book}
+            currentChapter={chapter}
+            currentVerse={verseNum}
+            verseCount={50} // Fallback count
+          />
+        </div>
         <div className="p-12 bg-red-950/10 border border-red-900/40 rounded-2xl text-center flex flex-col items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-red-950/40 border border-red-900/60 flex items-center justify-center text-red-500 mb-2">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,14 +84,13 @@ async function ChapterContainer({ osisId }: { osisId: string }) {
  */
 function InterlinearSkeleton() {
   return (
-    <div className="flex flex-col gap-8 w-full">
-      {/* Navigator Skeleton */}
-      <div className="h-14 bg-neutral-900/40 border border-neutral-850 rounded-2xl animate-pulse w-full max-w-4xl mx-auto" />
+    <div className="w-full">
+      <div className="flex flex-col lg:flex-row gap-8 min-h-[500px] animate-pulse">
+        {/* Left/Center Column */}
+        <div className="flex-1 min-w-0 flex flex-col gap-6">
+          {/* Navigator Skeleton */}
+          <div className="h-14 bg-neutral-900/40 border border-neutral-850 rounded-2xl w-full max-w-2xl mx-auto" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 min-h-[500px] animate-pulse">
-        {/* Main Breakdown Skeleton */}
-        <div className="lg:col-span-3 flex flex-col gap-8">
-          
           {/* Continuous Text Skeleton */}
           <div className="p-6 bg-neutral-900/40 border border-neutral-850 rounded-2xl flex flex-col gap-4">
             <div className="h-4 w-28 bg-neutral-800 rounded" />
@@ -119,7 +121,7 @@ function InterlinearSkeleton() {
         </div>
 
         {/* Lexicon Panel Skeleton */}
-        <div className="lg:col-span-1 h-[500px] bg-neutral-900/40 border border-neutral-850 rounded-2xl p-6" />
+        <div className="w-full lg:w-96 shrink-0 h-[500px] bg-neutral-900/40 border border-neutral-850 rounded-2xl p-6" />
       </div>
     </div>
   );

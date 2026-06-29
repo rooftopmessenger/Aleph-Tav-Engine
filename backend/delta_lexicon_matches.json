@@ -1,0 +1,150 @@
+[
+  {
+    "target_value": 17,
+    "match_type": "double",
+    "osis_id": "1Kgs.7.8",
+    "english_text": "And his house where he dwelt had another court within the porch, which was of the like work. Solomon made also an house for Pharaoh's daughter, whom he had taken to wife, like unto this porch.",
+    "words": [
+      {
+        "word_index": 16,
+        "hebrew": "הַ",
+        "strongs": "H9009",
+        "english_gloss": "the",
+        "lexicon_gloss": "[the]",
+        "lemma": "/ה",
+        "transliteration": "ha",
+        "gematria": 5
+      },
+      {
+        "word_index": 17,
+        "hebrew": "זֶּ֖ה",
+        "strongs": "H2088",
+        "english_gloss": "this",
+        "lexicon_gloss": "this",
+        "lemma": "זֶה",
+        "transliteration": "zeh",
+        "gematria": 12
+      }
+    ]
+  },
+  {
+    "target_value": 17,
+    "match_type": "double",
+    "osis_id": "1Kgs.7.8",
+    "english_text": "And his house where he dwelt had another court within the porch, which was of the like work. Solomon made also an house for Pharaoh's daughter, whom he had taken to wife, like unto this porch.",
+    "words": [
+      {
+        "word_index": 31,
+        "hebrew": "הַ",
+        "strongs": "H9009",
+        "english_gloss": "the",
+        "lexicon_gloss": "[the]",
+        "lemma": "/ה",
+        "transliteration": "ha",
+        "gematria": 5
+      },
+      {
+        "word_index": 32,
+        "hebrew": "זֶּֽה׃",
+        "strongs": "H2088",
+        "english_gloss": "this",
+        "lexicon_gloss": "this",
+        "lemma": "זֶה",
+        "transliteration": "zeh",
+        "gematria": 12
+      }
+    ]
+  },
+  {
+    "target_value": 17,
+    "match_type": "single",
+    "osis_id": "2Chr.3.5",
+    "english_text": "And the greater house he cieled with fir tree, which he overlaid with fine gold, and set thereon palm trees and chains.",
+    "words": [
+      {
+        "word_index": 12,
+        "hebrew": "טֹ֑וב",
+        "strongs": "H2896",
+        "english_gloss": "good",
+        "lexicon_gloss": "be good",
+        "lemma": "טֹ֑וב",
+        "transliteration": "",
+        "gematria": 17
+      }
+    ]
+  },
+  {
+    "target_value": 17,
+    "match_type": "single",
+    "osis_id": "2Chr.3.8",
+    "english_text": "And he made the most holy house, the length whereof was according to the breadth of the house, twenty cubits, and the breadth thereof twenty cubits: and he overlaid it with fine gold, amounting to six hundred talents.",
+    "words": [
+      {
+        "word_index": 22,
+        "hebrew": "טֹ֔וב",
+        "strongs": "H2896",
+        "english_gloss": "good",
+        "lexicon_gloss": "be good",
+        "lemma": "טֹ֑וב",
+        "transliteration": "",
+        "gematria": 17
+      }
+    ]
+  },
+  {
+    "target_value": 279,
+    "match_type": "double",
+    "osis_id": "1Kgs.7.27",
+    "english_text": "And he made ten bases of brass; four cubits was the length of one base, and four cubits the breadth thereof, and three cubits the height of it.",
+    "words": [
+      {
+        "word_index": 16,
+        "hebrew": "וְ",
+        "strongs": "H9000",
+        "english_gloss": "and",
+        "lexicon_gloss": "and",
+        "lemma": "וְ",
+        "transliteration": "",
+        "gematria": 6
+      },
+      {
+        "word_index": 17,
+        "hebrew": "אַרְבַּ֤ע",
+        "strongs": "H702",
+        "english_gloss": "four",
+        "lexicon_gloss": "four",
+        "lemma": "אַרְבַּע",
+        "transliteration": "ar.ba",
+        "gematria": 273
+      }
+    ]
+  },
+  {
+    "target_value": 279,
+    "match_type": "double",
+    "osis_id": "1Kgs.7.34",
+    "english_text": "And there were four undersetters to the four corners of one base: and the undersetters were of the very base itself.",
+    "words": [
+      {
+        "word_index": 0,
+        "hebrew": "וְ",
+        "strongs": "H9000",
+        "english_gloss": "and",
+        "lexicon_gloss": "and",
+        "lemma": "וְ",
+        "transliteration": "",
+        "gematria": 6
+      },
+      {
+        "word_index": 1,
+        "hebrew": "אַרְבַּ֣ע",
+        "strongs": "H702",
+        "english_gloss": "four",
+        "lexicon_gloss": "four",
+        "lemma": "אַרְבַּע",
+        "transliteration": "ar.ba",
+        "gematria": 273
+      }
+    ]
+  }
+]

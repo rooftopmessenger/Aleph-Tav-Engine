@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { fetchWordDetail, WordExtended } from '@/lib/api';
+import PaleoDecoder from '@/components/PaleoDecoder';
+
+
 
 function getPhoneticTransliteration(hebrew: string): string {
   if (!hebrew) return '';
@@ -94,6 +97,8 @@ export default function WordCryptographyPage() {
       </div>
     );
   }
+
+
 
   return (
     <div className="max-w-5xl mx-auto flex flex-col gap-8 w-full py-4">
@@ -203,6 +208,9 @@ export default function WordCryptographyPage() {
               </p>
             </div>
           </div>
+
+          {/* Paleo-Hebrew Pictographic Breakdown Panel */}
+          <PaleoDecoder hebrew={word.hebrew_segment || ''} />
 
           {/* Cipher Transformations Panel */}
           <div className="p-6 bg-[#0a0a0a] border border-zinc-850 rounded-2xl shadow-xl flex flex-col gap-4">

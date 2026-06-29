@@ -1,0 +1,137 @@
+{
+  "א": {
+    "letter": "Aleph",
+    "pictograph": "Ox Head",
+    "meaning": "Strength, Leader, First"
+  },
+  "ב": {
+    "letter": "Bet",
+    "pictograph": "Tent/Floorplan",
+    "meaning": "House, Family, In/Inside"
+  },
+  "ג": {
+    "letter": "Gimel",
+    "pictograph": "Foot",
+    "meaning": "Walk, Gather, Carry"
+  },
+  "ד": {
+    "letter": "Dalet",
+    "pictograph": "Tent Door",
+    "meaning": "Door, Pathway, Enter, Move"
+  },
+  "ה": {
+    "letter": "Hey",
+    "pictograph": "Man with arms raised / Window",
+    "meaning": "Behold, Reveal, Breath, Spirit"
+  },
+  "ו": {
+    "letter": "Vav",
+    "pictograph": "Tent Peg / Nail",
+    "meaning": "Add, Secure, Hook, Connect"
+  },
+  "ז": {
+    "letter": "Zayin",
+    "pictograph": "Plow / Weapon",
+    "meaning": "Cut, Weapon, Food, Nourish"
+  },
+  "ח": {
+    "letter": "Chet",
+    "pictograph": "Tent Wall",
+    "meaning": "Fence, Separation, Outside, Inside, Divide"
+  },
+  "ט": {
+    "letter": "Tet",
+    "pictograph": "Basket / Clay container",
+    "meaning": "Surround, Contain, Mud, Store"
+  },
+  "י": {
+    "letter": "Yod",
+    "pictograph": "Arm and Hand",
+    "meaning": "Work, Deed, Make, Power"
+  },
+  "כ": {
+    "letter": "Kaf",
+    "pictograph": "Open Palm",
+    "meaning": "Bend, Open, Allow, Tame, Cover"
+  },
+  "ך": {
+    "letter": "Kaf (Final)",
+    "pictograph": "Open Palm",
+    "meaning": "Bend, Open, Allow, Tame, Cover"
+  },
+  "ל": {
+    "letter": "Lamed",
+    "pictograph": "Shepherd's Staff",
+    "meaning": "Teach, Yoke, Authority, Toward"
+  },
+  "מ": {
+    "letter": "Mem",
+    "pictograph": "Water waves",
+    "meaning": "Chaos, Mighty, Blood, Liquid"
+  },
+  "ם": {
+    "letter": "Mem (Final)",
+    "pictograph": "Water waves",
+    "meaning": "Chaos, Mighty, Blood, Liquid"
+  },
+  "נ": {
+    "letter": "Nun",
+    "pictograph": "Sprouting Seed / Fish",
+    "meaning": "Life, Continue, Offspring, Activity"
+  },
+  "ן": {
+    "letter": "Nun (Final)",
+    "pictograph": "Sprouting Seed / Fish",
+    "meaning": "Life, Continue, Offspring, Activity"
+  },
+  "ס": {
+    "letter": "Samekh",
+    "pictograph": "Thorn / Prop",
+    "meaning": "Support, Turn, Shield, Grab"
+  },
+  "ע": {
+    "letter": "Ayin",
+    "pictograph": "Eye",
+    "meaning": "See, Know, Experience, Watch"
+  },
+  "פ": {
+    "letter": "Pey",
+    "pictograph": "Open Mouth",
+    "meaning": "Speak, Word, Blow, Scatter"
+  },
+  "ף": {
+    "letter": "Pey (Final)",
+    "pictograph": "Open Mouth",
+    "meaning": "Speak, Word, Blow, Scatter"
+  },
+  "צ": {
+    "letter": "Tsade",
+    "pictograph": "Man on his side / Hook",
+    "meaning": "Desire, Hunt, Need, Journey, Righteous"
+  },
+  "ץ": {
+    "letter": "Tsade (Final)",
+    "pictograph": "Man on his side / Hook",
+    "meaning": "Desire, Hunt, Need, Journey, Righteous"
+  },
+  "ק": {
+    "letter": "Kof",
+    "pictograph": "Sun on horizon / Back of head",
+    "meaning": "Condense, Circle, Time, Behind, Least"
+  },
+  "ר": {
+    "letter": "Resh",
+    "pictograph": "Head of a man",
+    "meaning": "Head, Chief, Beginning, Top"
+  },
+  "ש": {
+    "letter": "Shin",
+    "pictograph": "Two Front Teeth",
+    "meaning": "Sharp, Press, Eat, Destroy, Consume"
+  },
+  "ת": {
+    "letter": "Tav",
+    "pictograph": "Crossed Sticks / Sign",
+    "meaning": "Mark, Covenant, Signal, Monument, Seal"
+  }
+}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchAllNotes, SavedNote } from '@/lib/api';
+import ExportButtonPanel from '@/components/ExportButtonPanel';
 
 // Helper to determine Pardes level from note text
 const parsePardesLevel = (text: string) => {
@@ -32,10 +33,86 @@ const cleanNoteText = (text: string) => {
     .trim();
 };
 
+const Tooltip = ({ text, children }: { text: string; children: React.ReactNode }) => {
+  return (
+    <div className="relative group inline-block">
+      {children}
+      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-[10px] leading-relaxed text-neutral-350 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-50 text-center font-sans">
+        {text}
+        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-950" />
+      </div>
+    </div>
+  );
+};
+
+const GettingStartedModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      id="getting-started-modal"
+      data-testid="getting-started-modal"
+      className="fixed inset-0 bg-neutral-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+    >
+      <div className="bg-[#0a0a0a] border border-zinc-800 rounded-3xl p-6 md:p-8 max-w-xl w-full shadow-2xl flex flex-col gap-6 relative">
+        <button 
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 text-neutral-450 hover:text-neutral-200 flex items-center justify-center cursor-pointer transition-colors active:scale-95"
+        >
+          ✕
+        </button>
+
+        <div className="flex flex-col gap-1.5">
+          <span className="text-[10px] text-amber-500 uppercase tracking-widest font-mono font-bold">Onboarding Wizard</span>
+          <h3 className="text-xl font-black text-neutral-100">Getting Started with Aleph-Tav</h3>
+        </div>
+
+        <div className="flex flex-col gap-4 text-xs text-neutral-350 leading-relaxed max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
+          <div className="flex gap-3">
+            <span className="font-mono text-amber-500 font-bold">01.</span>
+            <p>
+              <strong className="text-neutral-100">Browse Scripture:</strong> Head over to the <strong className="text-amber-400">Interlinear Reader</strong> to read the original text, click on words to see Strong's numbers, lexical entries, and theological Permutations.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <span className="font-mono text-amber-500 font-bold">02.</span>
+            <p>
+              <strong className="text-neutral-100">Analyze Cryptography:</strong> Search the database by numerical weight (Gematria ciphers) or investigate parallel passages in the <strong className="text-amber-400">Analytics Console</strong>.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <span className="font-mono text-amber-500 font-bold">03.</span>
+            <p>
+              <strong className="text-neutral-100">Explore Patterns:</strong> Use the ELS scanner or view thematic clusters in the 3D Concept Graph to understand semantic topologies.
+            </p>
+          </div>
+        </div>
+
+        <button 
+          onClick={onClose}
+          className="w-full py-3 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold rounded-xl text-xs uppercase tracking-wider transition-colors cursor-pointer text-center"
+        >
+          Explore Engine
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default function DashboardPage() {
   const [token, setToken] = useState<string | null>(null);
   const [notes, setNotes] = useState<SavedNote[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isGettingStartedOpen, setIsGettingStartedOpen] = useState(false);
+
+  // Open Getting Started modal on first visit
+  useEffect(() => {
+    const visited = localStorage.getItem('visited-getting-started');
+    if (!visited) {
+      setIsGettingStartedOpen(true);
+      localStorage.setItem('visited-getting-started', 'true');
+    }
+  }, []);
 
   // Sync token from localStorage
   useEffect(() => {
@@ -73,6 +150,7 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-10 w-full py-4">
+      <GettingStartedModal isOpen={isGettingStartedOpen} onClose={() => setIsGettingStartedOpen(false)} />
       {/* 1. Hero Welcome Banner */}
       <section className="bg-gradient-to-br from-neutral-900 via-neutral-950 to-neutral-900 border border-neutral-900 rounded-3xl p-8 md:p-12 overflow-hidden relative shadow-2xl">
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full filter blur-3xl pointer-events-none -mr-20 -mt-20" />
@@ -157,18 +235,103 @@ export default function DashboardPage() {
         </Link>
       </section>
 
+      {/* 2.5 Onboarding & Cryptographic Modules */}
+      <section className="flex flex-col gap-6">
+        <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
+          <div className="flex flex-col gap-1">
+            <h3 className="text-xl font-bold text-neutral-100 flex items-center gap-2">
+              Linguistic & Cryptographic Modules
+              <button 
+                onClick={() => setIsGettingStartedOpen(true)}
+                className="ml-2 px-3 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-[10px] font-bold uppercase tracking-wider text-amber-400 rounded-full border border-amber-500/20 cursor-pointer transition-all active:scale-95"
+              >
+                Guide
+              </button>
+            </h3>
+            <p className="text-xs text-neutral-500">
+              Hover over the help icons to understand the structural decryption techniques.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card A: Atbash */}
+          <div className="p-6 bg-neutral-900/30 border border-neutral-900 rounded-2xl flex flex-col justify-between gap-4 relative group hover:border-zinc-800 transition-colors">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-bold text-neutral-100 uppercase tracking-wider">Atbash Cipher</h4>
+                <Tooltip text="Atbash is a monoalphabetic substitution cipher where the first letter of the Hebrew alphabet (Aleph) is mapped to the last letter (Tav), the second (Bet) to the second-to-last (Shin), and so on.">
+                  <span 
+                    data-testid="atbash-help" 
+                    className="w-5 h-5 rounded-full bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-450 hover:text-amber-400 hover:border-amber-500/35 cursor-help transition-all text-xs font-mono font-bold select-none"
+                  >
+                    ?
+                  </span>
+                </Tooltip>
+              </div>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Decrypt the Hebrew consonantal roots by reversing their alphabetical values using the traditional Atbash cipher mappings.
+              </p>
+            </div>
+          </div>
+
+          {/* Card B: ELS */}
+          <div className="p-6 bg-neutral-900/30 border border-neutral-900 rounded-2xl flex flex-col justify-between gap-4 relative group hover:border-zinc-800 transition-colors">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-bold text-neutral-100 uppercase tracking-wider">ELS Decoder</h4>
+                <Tooltip text="Equidistant Letter Sequence (ELS) scans continuous consonantal Hebrew text at mathematically fixed skip sequences to decode hidden words.">
+                  <span 
+                    data-testid="els-help" 
+                    className="w-5 h-5 rounded-full bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-450 hover:text-amber-400 hover:border-amber-500/35 cursor-help transition-all text-xs font-mono font-bold select-none"
+                  >
+                    ?
+                  </span>
+                </Tooltip>
+              </div>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Scan raw Hebrew texts at equidistant spacing intervals (ranging from -50 to +50) to unlock hidden cryptographic sequences.
+              </p>
+            </div>
+          </div>
+
+          {/* Card C: Temurah */}
+          <div className="p-6 bg-neutral-900/30 border border-neutral-900 rounded-2xl flex flex-col justify-between gap-4 relative group hover:border-zinc-800 transition-colors">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-bold text-neutral-100 uppercase tracking-wider">Temurah Engine</h4>
+                <Tooltip text="Temurah locates anagram matches sharing the exact same sorted consonants within the Strong's concordance lexicon to expose thematic connections.">
+                  <span 
+                    data-testid="temurah-help" 
+                    className="w-5 h-5 rounded-full bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-450 hover:text-amber-400 hover:border-amber-500/35 cursor-help transition-all text-xs font-mono font-bold select-none"
+                  >
+                    ?
+                  </span>
+                </Tooltip>
+              </div>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Permute and rearrange word consonant structures to discover matching lexical entries sharing identical root consonants.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. Recent Notes & Pardes Framework */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Left Column: Recent Notes Feed */}
         <div className="lg:col-span-2 flex flex-col gap-6">
-          <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
-            <h3 className="text-xl font-bold text-neutral-100">Recent Study Notes</h3>
-            {token && notes.length > 0 && (
-              <Link href="/notes" className="text-xs text-amber-400 hover:underline">
-                View All Workspace Notes
-              </Link>
-            )}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-900 pb-4">
+            <div className="flex flex-col gap-1">
+              <h3 className="text-xl font-bold text-neutral-100">Recent Study Notes</h3>
+              {token && notes.length > 0 && (
+                <Link href="/notes" className="text-xs text-amber-400 hover:underline">
+                  View All Workspace Notes
+                </Link>
+              )}
+            </div>
+            {token && notes.length > 0 && <ExportButtonPanel />}
           </div>
 
           {loading ? (
